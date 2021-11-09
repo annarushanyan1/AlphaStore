@@ -1,0 +1,22 @@
+.text_about_us{
+    width: 500px;
+    margin-top: 40px;
+    font-family: "Times New Roman", Times, serif;
+    letter-spacing: 0.5px;
+}
+
+.about_us_main_block{
+    display: flex;
+    justify-content: center;
+}
+.about_us_inner_block{
+    padding-top: 100px;
+    display: flex;
+flex-direction: column;
+    justify-content: center;
+    margin-bottom: 70px;
+}
+
+.about_us_title{
+    text-align: center;
+}

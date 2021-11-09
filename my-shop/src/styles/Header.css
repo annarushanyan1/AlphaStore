@@ -1,0 +1,42 @@
+.header{
+    margin: 0 0 ;
+  width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(227, 238, 232);
+    height: 70px;
+    position:fixed;
+    z-index: 100;
+    
+}
+
+.mycount {
+  all: unset;
+  pointer-events: none;
+  position:absolute;
+  z-index: 10;
+  top: 10px;
+  display:block;
+  background-color: red;
+  width: 20px;
+  text-align: center;
+  border-radius: 10px;
+  color: white;
+  font-size: 17px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* padding: 3x; */
+  right: 16%;
+}
+
+.home{
+  margin-left: 10px;
+}
+
+.login{
+  position: relative;
+  right: 20px;
+}
+
+/*sssssssssssssssssssssssssssss*/
+
+

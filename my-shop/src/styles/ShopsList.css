@@ -1,0 +1,40 @@
+.mainShop{
+    background-color: rgb(212, 187, 236);
+    padding: 70px 10%;
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+
+.title2{
+    padding-top: 15px;
+    font-size: 30px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.shop{
+    padding-top: 20px;
+    width: 170px;
+    height: 110px;
+
+}
+
+
+.collections{
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+justify-content: space-around;
+
+
+}
+
+
+.collections>div{
+    padding: 10px;
+}

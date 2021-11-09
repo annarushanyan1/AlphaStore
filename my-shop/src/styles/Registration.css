@@ -1,0 +1,76 @@
+.registerBlock{
+background-color: rgb(201, 201, 250);
+display: flex;
+padding-right: 100px;
+
+}
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.block{
+    /* border: 2px red dotted; */
+
+    margin:0px 40%;
+    padding-top: 150px;
+    display: flex;
+    justify-content: center;
+    padding-left: 30px;
+
+
+}
+
+.btnRegister{
+    background-color: #e3eee7;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    height: 40px;
+    width: 300px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 3px 10px;
+}
+
+.btnRegister:active,.btnRegister:hover {
+    font-size: 21px;
+    border: 1px solid rgb(66, 66, 66);
+background-color: rgb(201, 246, 221);
+}
+
+.inputStyle{
+    width: 200px;
+    height: 30px;
+    border: none;
+    text-indent: 10px;
+    font-size: 18px;
+}
+
+.inputStyle:focus {
+    background-color: rgb(248, 248, 171);
+    outline: none;
+  }
+
+  .registerbtn{
+    text-align: center;
+  }
+
+.success{
+display: block;
+position:absolute;
+z-index: 100;
+background-color: rgb(255, 181, 181);
+opacity: 0.8;
+width: 100px;
+height: 100px;
+/* margin: 100px; */
+top: 40%;
+left: 40%;
+margin-top: -50px;
+margin-left: -50px;
+width: 300px;
+height: 100px;
+}
+.gender{
+    width: 70%;
+    height: 30px;
+    display: flex;
+    margin:0 auto;
+}
