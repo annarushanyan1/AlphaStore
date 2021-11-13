@@ -10,15 +10,11 @@ flex-wrap: wrap;
 
 }
 .product{
-    /* width: 100px; */
-    /* height: 100px; */
     margin: 10px;
-    /* background-color: aqua; */
 }
 
 .image{
     width: 200px;
-/* height: 300px; */
 }
 
 .btnAdd{

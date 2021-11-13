@@ -1,19 +1,20 @@
 
-import React, { Component,useEffect, useState } from "react"
+import React, { Component, useEffect, useState } from "react"
 
 import ShopsList from "./ShopsList"
 import '../styles/Home.css';
 import '../styles/Products.css'
+import logoA from './../images/logoA.png'
 
 
 import Popup from 'reactjs-popup';
 
 
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
+import Menu from "./Menu";
 
 // let addId = document.getElementById("btnAddId");
 // let open = true;
-
 const PopupError = () => {
     let active = localStorage.getItem("user");
     if (active == 1) {
@@ -40,29 +41,25 @@ const PopupError = () => {
 }
 
 const PopupItem = (props) => {
-    let [img,setImg] = useState("");
+    let [img, setImg] = useState("");
     useEffect(() => {
-    let prd = JSON.parse(localStorage.getItem("shopProducts"));
-    console.log(prd)
+        let prd = JSON.parse(localStorage.getItem("shopProducts"));
+        console.log(prd)
 
         for (let i = 0; i < prd.length; i++) {
-            // console.log("innn")
-            // console.log(id)
-            if(prd[i]['id'] == props.id)
-            {
-                console.log("aaaaaaaaaaa")
+            if (prd[i]['id'] == props.id) {
                 setImg(prd[i]['img'])
                 console.log(img)
 
                 break
             }
-            
+
         }
 
-      }, []);
+    }, []);
 
     let active = localStorage.getItem("user");
-    
+
     if (active == 0) {
         return (
             <Popup open={true} position="">
@@ -70,9 +67,9 @@ const PopupItem = (props) => {
                     close => (
                         <div className="popUpWindowItem">
                             <a href="http://localhost:3000/account">
-                            <img className="imageH" src={img} alt="image" />
+                                <img className="imageH" src={img} alt="image" />
                             </a>
-                            <p className="text">Added</p>
+                            <p className="textAdded">Added</p>
                         </div>
                     )
                 }
@@ -87,25 +84,31 @@ export default class Home extends Component {
     state = {
         shown: false,
         id: 1,
-        shown2:false
+        shown2: false,
+        inputText: ""
     }
     constructor(props) {
         super(props)
         this.state = {
             products: []
         }
-        console.log(props)
         this.shown = true;
         this.ref = React.createRef()
+        this.handleOnSearch = this.handleOnSearch.bind(this)
         this.handleOnSelect = this.handleOnSelect.bind(this)
+        this.handleEnter = this.handleEnter.bind(this)
         this.addtocart = this.addtocart.bind(this)
+
         this.state.products = JSON.parse(localStorage.getItem("shopProducts"))
         this.shownItems = [];
         this.givingPrices();
 
+        let classSearch = document.getElementsByClassName("")
+
 
     }
     query = '';
+    InputRef = React.createRef();
 
 
     // this.state.products
@@ -117,6 +120,11 @@ export default class Home extends Component {
 
     handleOnSearch = (string, results) => {
         this.query = string;
+        this.setState({ inputText: string });
+
+        console.log(this.InputRef)
+        // this.shownItems = results;
+
         // this.forceUpdate()
         // this.filterPosts(string,results);
 
@@ -128,7 +136,7 @@ export default class Home extends Component {
     // handleOnHover = (result) => {
     //     // the item hovered
 
-    //     console.log(result)
+    //     console.log(result);
     // }
 
     handleOnSelect = (item) => {
@@ -144,6 +152,7 @@ export default class Home extends Component {
                 }
             }
         )
+        console.log(this.state.inputText)
         // this.shownItems.push(item);
         setTimeout(() => {
             this.forceUpdate()
@@ -151,8 +160,22 @@ export default class Home extends Component {
 
         console.log(item)
     }
+    handleEnter(event) {
+        if (event.key === 'Enter') {
+            console.log('enter');
+            let obj = {
+                name: this.state.inputText
+            }
+            this.handleOnSelect(obj)
+        }
+    }
 
     handleOnFocus = () => {
+        window.scroll({
+            top: 700,
+            behavior: 'smooth'
+          });
+
         console.log(this.query)
         if (!this.query) {
             this.shownItems = this.state.products;
@@ -190,40 +213,37 @@ export default class Home extends Component {
         let active = localStorage.getItem('user');
         if (active == 1) {
             this.setState({ shown: true })
-
-
-            // alert("You are not logged in")
-            // window.location.href = 'login'
         }
 
         let itemId = e.target.parentElement.getAttribute("id");
-        let userId = localStorage.getItem("userId")
-
-
+        let userId = localStorage.getItem("userId");
+        let token = localStorage.getItem("token");
         let sendingData = {
-            itemId, userId
+            itemId, userId, token
         }
         if (active == 0) {
             this.setState({ id: Number(itemId) })
             this.setState({ shown2: true })
-setTimeout(
-    ()=>{
-        this.setState({ shown2: false })
+            setTimeout(
+                () => {
+                    this.setState({ shown2: false })
 
-    },1500
-)
+                }, 1500
+            )
 
 
             let labelCount = document.getElementById("labelCount");
             labelCount.value = Number(labelCount.value) + 1;
 
-            fetch('/api/addToCart', {
-                method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(sendingData) // body data type must match "Content-Type" header
-            })
+            fetch(
+                '/api/addToCart',
+                {
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(sendingData) // body data type must match "Content-Type" header
+                })
                 .then(
                     res => res.json()
                 )
@@ -253,6 +273,11 @@ setTimeout(
             // alert("Added")
         }
     }
+    // HistoryPushState(id){
+    // window.history.pushState({"id":id},'productId');
+    // console.log(window.history)
+    // // window.open("http://localhost:3000/product","_self")
+    // }
     render() {
         console.log(this.props);
         let keys = new Map();
@@ -262,38 +287,55 @@ setTimeout(
             }
         )
         let usingDate = Array.from(keys, ([name, value]) => (value));
-
+        console.log("usingData: ", usingDate)
 
         if (this.shownItems == [] || this.shownItems == '') {
             this.shownItems = this.state.products;
         }
 
         if (1 == 0) {
+
         } else {
-            let nwobj = [];
-            this.state.products.map(
-                item => nwobj.push(item["name"])
-            )
+
 
             return (
-                <div>
-                    {this.state.shown2 ? <PopupItem id={this.state.id}/> : null}
-                    <ShopsList />
-                    <p className="text">Product List
-                    </p>
-                    <div className="search">
-                        <ReactSearchAutocomplete
-                            //    resultStringKeyName={nwobj}
-                            items={usingDate}
-
-                            onSearch={this.handleOnSearch}
-                            // onHover={this.handleOnHover}
-                            onSelect={this.handleOnSelect}
-                            onFocus={this.handleOnFocus}
-                        // autoFocus
-                        // formatResult={this.formatResult}
-                        />
+                <div className="home_main_div">
+                    {this.state.shown2 ? <PopupItem id={this.state.id} /> : null}
+                   <Menu/>
+                    <div className="logoA_div">
+                        <img className="logoA" src={logoA} />
                     </div>
+
+                    <p className="text">Best Products
+                    </p>
+
+                    <div className="search searchFromAbove"
+                        ref={this.InputRef}
+                        onKeyPress={this.handleEnter}
+                    >
+
+                        <div>
+                            <ReactSearchAutocomplete
+                                items={usingDate}
+                                onSearch={this.handleOnSearch}
+                                onSelect={this.handleOnSelect}
+                                onFocus={this.handleOnFocus}
+                                // autoFocus
+                                styling={
+                                    {
+                                        width: "400px",
+                                    }
+                                }
+                            />
+                        </div>
+
+
+                        {/* <div>
+                            <img className="filter_image" src="https://icon-library.com/images/filter-png-icon/filter-png-icon-19.jpg" alt="filter" />
+                        </div> */}
+                    </div>
+
+
                     {
                         this.state.shown ? <PopupError /> : null
                     }
@@ -305,8 +347,28 @@ setTimeout(
                             this.shownItems.map(
                                 (item) => {
                                     return (
-                                        <div name={item['name']} className="productH" id={item['id']} key={item['id']}><img className="imageH" src={item['img']} alt="bag" />
+                                        <div name={item['name']} className="productH" id={item['id']} key={item['id']}>
+
+                                            {/* <Link to={{
+                                                pathname: `/product`,
+                                                query: { id: item['id'] }
+                                            }} > */}
+                                            <img className="imageH"
+                                                src={item['img']}
+                                                alt="bag"
+                                                onClick={() => {
+                                                    let id = item['id'];
+                                                    window.history.pushState({ "id": id }, 'productId', "http://localhost:3000/product");
+                                                    console.log(window.history)
+                                                    window.open("http://localhost:3000/product", "_self")
+                                                }}
+                                            />
+                                            {/* </Link> */}
                                             <br />
+                                            <div className="priceLabel">
+                                                <label>Name</label>
+                                                <label>{item['name']}</label>
+                                            </div>
                                             <div className="priceLabel">
                                                 <label>Price</label>
                                                 <label>{item['price']}$</label>
@@ -327,4 +389,5 @@ setTimeout(
     }
 
 }
+
 

@@ -3,7 +3,6 @@ import "./../styles/Registration.css"
 
 
 const Registration = () => {
-
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     const [username, setUsername] = useState("");
@@ -16,8 +15,6 @@ const Registration = () => {
     function handleRegister() {
         var CryptoJS = require("crypto-js");
         var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(password), 'my-secret-key@123').toString();
-        // this.setState({ 'password':ciphertext})
-        // setPassword(ciphertext);
 
         console.log(ciphertext)
         if (firstname != "" && lastname != "" && username != "" && password != "") {
@@ -26,13 +23,15 @@ const Registration = () => {
                 "password": ciphertext
             }
 
-            fetch('/api/registration', {
-                method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(sendingData) // body data type must match "Content-Type" header
-            })
+            fetch(
+                '/api/registration',
+                {
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(sendingData) // body data type must match "Content-Type" header
+                })
                 .then(
                     res => res.json()
                 )
@@ -62,12 +61,9 @@ const Registration = () => {
                         } else {
                             alert("User with that username already exists")
                         }
-
-
-
                     }
                 )
-        }else{
+        } else {
             alert("All fields must be filled");
             window.location.reload()
         }
@@ -80,7 +76,6 @@ const Registration = () => {
             <div className="block">
                 <form>
                     <p style={style}>Registration</p><br />
-
                     <br />
                     <input
                         placeholder="Your Firstname"
@@ -90,7 +85,6 @@ const Registration = () => {
                         value={firstname}
                     />
                     <br />
-
                     <br />
                     <input
                         name="lastname"
@@ -102,7 +96,6 @@ const Registration = () => {
 
                     />
                     <br />
-
                     <br />
                     <input
                         name="username"
@@ -114,7 +107,6 @@ const Registration = () => {
 
                     />
                     <br />
-
                     <br />
                     <input
                         name="password"

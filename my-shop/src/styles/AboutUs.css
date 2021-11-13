@@ -10,11 +10,12 @@
     justify-content: center;
 }
 .about_us_inner_block{
-    padding-top: 100px;
+
     display: flex;
-flex-direction: column;
+    flex-direction: column;
     justify-content: center;
     margin-bottom: 70px;
+
 }
 
 .about_us_title{

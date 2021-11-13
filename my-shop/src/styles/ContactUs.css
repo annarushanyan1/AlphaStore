@@ -1,11 +1,9 @@
 .formMain{
-    padding-top: 100px;
-
     display: flex;
     justify-content: center;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
-
     /* margin:0 auto; */
+    padding-top: 80px;
 }
 
 .title_form_contact{
@@ -93,23 +91,22 @@ font-size: 20px;
 }
 
 .custom-form__block{
-display: flex;
-flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 .contactFormCheckbox{
-margin-top: 12px;
-margin-right: 8px;
+    margin-top: 12px;
+    margin-right: 8px;
 
 }
 
 .select_block{
     display: flex;
-flex-direction: column;
+    flex-direction: column;
 }
 
 .contactFormSelect{
-
     margin-bottom: 22px;
     width: 400px;
     height: 40px;
@@ -137,7 +134,18 @@ flex-direction: column;
     width: 100%;
     border: none;
     border-radius: 4px;
-margin-bottom: 60px;
+    margin-bottom: 60px;
+    cursor: pointer;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
 
+.btn_send:hover{
+    background-color: #e94242;
+
+    
+}
+.btn_send:active{
+    font-size: 16px;
 
 }

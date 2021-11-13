@@ -14,6 +14,8 @@ import {
 } from 'react-router-dom';
 import ContactUs from './componnents/ContactUs';
 import AboutUs from './componnents/AboutUs';
+import OneItem from './componnents/OneItem';
+import Menu from './componnents/Menu';
 
 
 
@@ -23,9 +25,8 @@ export default class App extends Component {
     count: 0
   }
   setWord(){
-
   }
-  render() {
+  componentDidMount(){
     fetch(
       '/api/shopProducts' 
     )
@@ -38,7 +39,16 @@ export default class App extends Component {
     
       }
     )
-    
+  }
+  menuShown(){
+    let loc = window.location.pathname;
+    if(loc == '/login')
+    {
+      return null
+    }
+    return <Menu/>
+  }
+  render() {
     let get = localStorage.getItem("user")
     if(get == 1)
     {
@@ -57,6 +67,7 @@ export default class App extends Component {
       <div className="App">
          <BrowserRouter>
           <Header count={this.state.count}/>
+          
           <Switch>
             <Route exact path="/" render={(props) => <Home countCart={countCart} {...props} /> }/>
             <Route path="/login" component={Login} />
@@ -64,8 +75,7 @@ export default class App extends Component {
             <Route path="/account" component={Dashboard} />
             <Route path="/contactUs" component={ContactUs} />
             <Route path="/aboutUs" component={AboutUs} />
-            {/* <Route path="/" component={Dashbroad} /> */}
-            
+            <Route path="/product" component={OneItem}/>
           </Switch>
           <Footer />
 

@@ -1,5 +1,10 @@
+.home_main_div{
+    background-color: rgb(240, 215, 195);
+
+}
+
 .userList{
-    background-color: rgb(248, 248, 199);
+    background-color: rgb(248, 206, 199);
     padding-bottom: 50px;
 
 }
@@ -22,8 +27,8 @@
     padding-top: 20px;
     display: flex;
     flex-direction: column;
-    width: 230px;
-    height: 350px;
+    width: 240px;
+    height: 360px;
     margin-bottom: 20px;
 }
 
@@ -39,7 +44,7 @@ flex-direction: row;
 justify-content: space-around;
 flex-wrap: wrap;
 margin:0 auto;
-margin-bottom: 50px;
+/* margin-bottom: 50px; */
 
 }
 
@@ -49,6 +54,7 @@ margin-bottom: 50px;
     display: flex;
     margin:0 auto;
     opacity: 1;
+    cursor: pointer;
 }
 
 .btnAdd{
@@ -131,4 +137,48 @@ margin-bottom: 50px;
 .iiitemWindow{
     position: relative;
     right: 0px;
+}
+
+.textAdded{
+    color: green;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.searchFromAbove{
+    position: fixed;
+    top: 10px;
+    z-index: 1000;
+    /* display: flex; */
+    /* justify-content: center; */
+    margin-left: 40%;
+}
+
+.filter_image{
+    width: 40px;
+    height: 40px;
+}
+
+
+
+
+/* @media  screen and (max-width: 600px) {
+    .wrapper{
+        display: none;
+    }
+
+} */
+.logoA_div{
+    background-color: #fff;
+}
+
+.logoA{
+    width: 100%;
+    padding-bottom: 110px;
+}
+
+.text{
+    color:rgb(93, 93, 93);
+    text-shadow: 0px 1px #000000;
 }

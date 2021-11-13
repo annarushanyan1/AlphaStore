@@ -1,15 +1,18 @@
 .header{
     margin: 0 0 ;
-  width: 100%;
+    width: 100%;
     display: flex;
     justify-content: space-around;
-    background-color: rgb(227, 238, 232);
+    background-color: rgb(233, 233, 233);
     height: 70px;
     position:fixed;
     z-index: 100;
     
 }
-
+.general{
+  cursor:pointer;
+    pointer-events: auto;
+}
 .mycount {
   all: unset;
   pointer-events: none;
@@ -24,7 +27,6 @@
   color: white;
   font-size: 17px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  /* padding: 3x; */
   right: 16%;
 }
 
@@ -37,6 +39,19 @@
   right: 20px;
 }
 
+.logo{
+  width: 50px;
+  height: 60px;
+}
+
 /*sssssssssssssssssssssssssssss*/
+
+.log_out_img{
+  padding-top: 5px;
+  width: 40px;
+  height: 40px;
+}
+
+
 
 
