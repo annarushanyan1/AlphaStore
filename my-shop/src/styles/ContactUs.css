@@ -66,7 +66,7 @@ font-size: 20px;
 .input_contact_message{
     margin-bottom: 22px;
     width: 400px;
-    height: 200px;
+    height: 150px;
     border: 1px rgb(202, 202, 202) solid;
     border-radius: 4px;
     text-indent: 20px;
@@ -148,4 +148,23 @@ font-size: 20px;
 .btn_send:active{
     font-size: 16px;
 
+}
+
+.back{
+
+    width: 140px;
+    height: 24px;
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    border-radius: 2px;
+    display: flex;
+    position: absolute;
+    left: 25%;
+    color: rgb(0, 0, 0);
+}
+
+.backImage{
+    width: 36px;
+    height: 30px;
+    cursor: pointer;
 }

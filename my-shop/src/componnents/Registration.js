@@ -119,11 +119,11 @@ const Registration = () => {
                     />
                     <br />
                     <br />
-                    <select name="gender" className="gender">
+                    {/* <select name="gender" className="gender">
                         <option value="none" selected disabled>Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
-                    </select>
+                    </select> */}
                     <br />
 
                     <div className="registerbtn">

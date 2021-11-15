@@ -176,3 +176,97 @@ input[type="number"] {
 
 
   
+
+
+.back{
+
+    width: 140px;
+    height: 24px;
+    padding-top: 10px;
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    border-radius: 2px;
+    display: flex;
+    position: absolute;
+    left: 14%;
+    color: rgb(0, 0, 0);
+}
+
+.recommended_text{
+    padding-top: 50px;
+}
+
+.recommend_picture{
+    width: 200px;
+    height: 240px;
+    display: flex;
+    /* margin-left: 20%;  */
+}
+
+.recomment_block{
+    /* flex-direction: column; */
+    padding: 5px;
+    margin-bottom: 10px;
+
+
+}
+
+.recomment_block:hover{
+    box-shadow: 1px 5px 5px 5px #888888;
+
+}
+
+.priceLabel_recommend{
+    /* display: block; */
+}
+
+.recommend_main{
+    padding-top: 50px;
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    margin: 0 auto;
+}
+
+
+.btnAdd_from_under{
+    float: right;
+    display: block;
+    text-decoration: none;
+    background: #000000;
+    color: #eeeeee;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 1px;
+    /* margin:0 8px; */
+    background-color: black;
+    margin: 0;
+    padding: 10px 10px;
+    width: 100%;
+    margin-top: 5px;
+
+}
+
+
+
+
+
+
+
+.btnAddf:hover{
+    background-color: rgb(156, 156, 156);
+    box-shadow: 0 2px #666;
+}
+    .btnAddf:active{
+    background-color: rgb(235, 160, 160);
+    box-shadow: 0 5px rgb(7, 7, 7);
+}
+
+
+.priceLabel{
+    padding-top: 3px;
+}

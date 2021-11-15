@@ -55,3 +55,40 @@
 
 
 
+.popUpWindow_logOut{
+  background-color: rgb(241, 240, 240);
+  width: 400px;
+  height: 200px;
+  color: black;
+}
+
+
+.popUpText_logOut{
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  padding-top: 80px;
+  justify-content: center;
+  color: rgb(0, 0, 0);
+
+}
+
+.popUp_buttons{
+  width: 40px;
+  height: 40px;
+  background-color: rgb(189, 189, 189);
+  margin-right: 5px;
+}
+
+
+.buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.logOutMain{
+  display: block;
+}

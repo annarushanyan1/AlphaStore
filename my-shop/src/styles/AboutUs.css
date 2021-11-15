@@ -8,6 +8,8 @@
 .about_us_main_block{
     display: flex;
     justify-content: center;
+    padding-top: 80px;
+
 }
 .about_us_inner_block{
 

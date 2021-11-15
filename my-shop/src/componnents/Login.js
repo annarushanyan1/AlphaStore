@@ -92,6 +92,7 @@ export default class Login extends Component {
             <div className="loginBlock">
 
                 <div className="block">
+                    <div className="log_block">
                     <form>
                         <p style={style}>Hello My Friend</p><br />
                         <input
@@ -131,6 +132,7 @@ export default class Login extends Component {
                             <p>Don't have an account? <a href="http://localhost:3000/registration" className="aHref">Sign Up</a></p>
                         </div>
                     </form>
+                    </div>
                 </div>
             </div>
         );

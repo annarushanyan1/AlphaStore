@@ -2,7 +2,8 @@ import React, { Component, useState } from "react"
 import './../styles/OneItem.css'
 import { Redirect } from "react-router-dom";
 import Popup from 'reactjs-popup';
-
+import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 
 const PopupError = () => {
     let active = localStorage.getItem("user");
@@ -32,10 +33,8 @@ const PopupError = () => {
 const OneItem = (props) => {
     let [count, setCount] = useState(1);
     let [shown, setShown] = useState(false);
-    console.log(props)
     let products = JSON.parse(localStorage.getItem("shopProducts"));
-    console.log(window.history);
-    let id = window.history.state.id;
+    let id = props.match.params.id;
     console.log(id);
     let prd = products.find(
         (item) => {
@@ -44,6 +43,18 @@ const OneItem = (props) => {
             }
         }
     )
+
+    function goBackToHome() {
+        window.scroll(
+            {
+                top: 0
+            }
+        );
+        window.history.back();
+        // window.scroll
+    }
+
+
     console.log(prd);
     let name = prd["name"];
     let filterList = [];
@@ -115,11 +126,11 @@ const OneItem = (props) => {
     return (
         <div className="one-item_main">
             {
-                        shown ? <PopupError /> : null
-                    }
-            {/* <label>
-                <Redirect to="/"/>
-            </label> */}
+                shown ? <PopupError /> : null
+            }
+            <p onClick={goBackToHome} className="back"> &nbsp;&nbsp; <img className="backImage" src="https://www.pinclipart.com/picdir/big/521-5215772_transparent-left-arrow-png-left-arrow-black-and.png" /></p>
+            <br />
+            <br />
             <div className="product_part">
                 <img className="one-item_main_picture" src={prd["img"]} />
 
@@ -145,19 +156,36 @@ const OneItem = (props) => {
                 </div>
             </div>
             <div className="similars">
-                <p>Recommended For You</p>
-                {
-                    filterList.map(
-                        (item) => {
-                            return <div>
-                                {item['name']}
-                            </div>
-                        }
-                    )
-                }
+                <p className="text recommended_text">Recommended For You</p>
+                <div className="recommend_main">
+
+                    {
+                        filterList.map(
+                            (item) => {
+                                return (
+
+                                    <div className="recomment_block">
+                                           <Link to={"/product/" + item['id']}>
+                                            <img className="recommend_picture" src={item["img"]} onClick={()=>{window.scroll({top:0})}}/>
+                                        </Link>
+                                      
+                                            <div className="priceLabel">
+                                                <label>Price</label>
+                                                <label>{item['price']}$</label>
+                                            </div>
+                                            <button id="btnAddId" onClick={addtocart} className="btnAdd_from_under">Add to Cart</button>
+
+                                    </div>
+
+                                )
+                            }
+                        )
+                    }
+                </div>
+
             </div>
         </div>
     )
 }
 
-export default OneItem
+export default withRouter(OneItem)

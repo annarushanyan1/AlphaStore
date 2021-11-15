@@ -5,13 +5,13 @@ import ShopsList from "./ShopsList"
 import '../styles/Home.css';
 import '../styles/Products.css'
 import logoA from './../images/logoA.png'
-
-
+import EmptyHeart from './../images/heartEmp.png'
 import Popup from 'reactjs-popup';
 
 
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import Menu from "./Menu";
+import { Link } from "react-router-dom";
 
 // let addId = document.getElementById("btnAddId");
 // let open = true;
@@ -90,7 +90,8 @@ export default class Home extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            products: []
+            products: [],
+            allProducts:[]
         }
         this.shown = true;
         this.ref = React.createRef()
@@ -100,13 +101,14 @@ export default class Home extends Component {
         this.addtocart = this.addtocart.bind(this)
 
         this.state.products = JSON.parse(localStorage.getItem("shopProducts"))
+        this.state.allProducts =  this.state.products;
+        this.state.products = this.state.products.slice(0,9)
         this.shownItems = [];
         this.givingPrices();
-
-        let classSearch = document.getElementsByClassName("")
-
-
+        // let prd = this.fetching();
+        // this.state.products = prd
     }
+    
     query = '';
     InputRef = React.createRef();
 
@@ -114,22 +116,15 @@ export default class Home extends Component {
     // this.state.products
 
     filterPosts = (items) => {
-        // shownItems = this.state.products;
         return items;
     };
 
     handleOnSearch = (string, results) => {
+
         this.query = string;
         this.setState({ inputText: string });
 
         console.log(this.InputRef)
-        // this.shownItems = results;
-
-        // this.forceUpdate()
-        // this.filterPosts(string,results);
-
-        // onSearch will have as the first callback parameter
-        // the string searched and for the second the results.
         console.log(string, results)
     }
 
@@ -145,7 +140,7 @@ export default class Home extends Component {
         this.shownItems = [];
         let name = item['name'];
 
-        this.state.products.map(
+        this.state.allProducts.map(
             item => {
                 if (item['name'] === name) {
                     this.shownItems.push(item)
@@ -209,12 +204,11 @@ export default class Home extends Component {
 
     //_____________________________________
     addtocart(e) {
-
         let active = localStorage.getItem('user');
         if (active == 1) {
             this.setState({ shown: true })
+            return
         }
-
         let itemId = e.target.parentElement.getAttribute("id");
         let userId = localStorage.getItem("userId");
         let token = localStorage.getItem("token");
@@ -222,7 +216,7 @@ export default class Home extends Component {
             itemId, userId, token
         }
         if (active == 0) {
-            this.setState({ id: Number(itemId) })
+            this.setState({ id: Number(itemId) });
             this.setState({ shown2: true })
             setTimeout(
                 () => {
@@ -279,9 +273,8 @@ export default class Home extends Component {
     // // window.open("http://localhost:3000/product","_self")
     // }
     render() {
-        console.log(this.props);
         let keys = new Map();
-        this.state.products.map(
+        this.state.allProducts.map(
             item => {
                 keys.set(item["name"], item)
             }
@@ -306,8 +299,7 @@ export default class Home extends Component {
                         <img className="logoA" src={logoA} />
                     </div>
 
-                    <p className="text">Best Products
-                    </p>
+                  
 
                     <div className="search searchFromAbove"
                         ref={this.InputRef}
@@ -328,18 +320,12 @@ export default class Home extends Component {
                                 }
                             />
                         </div>
-
-
-                        {/* <div>
-                            <img className="filter_image" src="https://icon-library.com/images/filter-png-icon/filter-png-icon-19.jpg" alt="filter" />
-                        </div> */}
                     </div>
 
 
                     {
                         this.state.shown ? <PopupError /> : null
                     }
-                    {/* <PopupError /> */}
                     <div className="mainH"
                     >
                         {
@@ -348,22 +334,20 @@ export default class Home extends Component {
                                 (item) => {
                                     return (
                                         <div name={item['name']} className="productH" id={item['id']} key={item['id']}>
-
-                                            {/* <Link to={{
-                                                pathname: `/product`,
-                                                query: { id: item['id'] }
-                                            }} > */}
+                                           <Link to={"/product/" + item['id']}>
                                             <img className="imageH"
                                                 src={item['img']}
                                                 alt="bag"
                                                 onClick={() => {
-                                                    let id = item['id'];
-                                                    window.history.pushState({ "id": id }, 'productId', "http://localhost:3000/product");
-                                                    console.log(window.history)
-                                                    window.open("http://localhost:3000/product", "_self")
+                                                    window.scroll(
+                                                        {
+                                                            top:0
+                                                        }
+                                                    )
                                                 }}
                                             />
-                                            {/* </Link> */}
+                                            </Link>
+                                            {/* <img className="heart" src={EmptyHeart}/> */}
                                             <br />
                                             <div className="priceLabel">
                                                 <label>Name</label>

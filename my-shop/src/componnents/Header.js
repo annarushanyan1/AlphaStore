@@ -7,12 +7,54 @@ import {
     Link,
 } from 'react-router-dom';
 
+import Popup from 'reactjs-popup';
 
 import Logo from './../images/logo.png'
+
+
+let ref_log_out = React.createRef();
+const PopupLogOut = () => {
+    function logout() {
+        let elem = document.getElementById("logOutMain");
+        elem.style.display = 'none';
+        localStorage.removeItem("products");
+        localStorage.removeItem("firstname");
+        localStorage.removeItem("lastname");
+        localStorage.removeItem("userId");
+        localStorage.setItem("user", 1);
+        window.location.reload();
+    }
+    function closing(){
+        let elem = document.getElementById("logOutMain");
+        elem.style.display = 'none';
+    }
+        return (
+            <div ref={ref_log_out}>
+            <Popup open={true} position="top left">
+                {
+                    close => (
+                        <div id="logOutMain" className="popUpWindow_logOut">
+
+                            <p className="popUpText_logOut">Are you sure to log out?</p>
+                            
+                            <div className="buttons">
+                            <button onClick={logout} className="popUp_buttons">Yes</button>
+                            <button className="popUp_buttons" onClick={closing}>No</button>
+                            </div>
+                        </div>
+                    )
+                }
+            </Popup>
+            </div>
+        );
+
+}
 
 const Header = (props) => {
     const [count, setCount] = useState(0);
     const [location, setLocation] = useState("/");
+    const [logOut,setLogOut] = useState(false)
+
     let myRef = React.createRef();
     useEffect(() => {
 
@@ -22,14 +64,7 @@ const Header = (props) => {
             console.log(myRef)
         }
     });
-    function logout() {
-        localStorage.removeItem("products");
-        localStorage.removeItem("firstname");
-        localStorage.removeItem("lastname");
-        localStorage.removeItem("userId");
-        localStorage.setItem("user", 1);
-        window.location.reload();
-    }
+ 
     function scrollToTop() {
         window.scroll({
             top: 0
@@ -53,9 +88,18 @@ const Header = (props) => {
 
 
     // setLocation(window.location.pathname);
+   function openLogOut(){
+    setLogOut(true) ;
+    setTimeout(
+           ()=>{
+    setLogOut(false)
 
+           },5000
+       )
+}
     return (
         <div className="header">
+            
             <img className="logo main_logo" src={Logo} alt="logo" />
             <p></p>
             <ul className="navbar">
@@ -75,7 +119,7 @@ const Header = (props) => {
                                         onClick={scrollToTop}
                                     />
                                 </Link>
-                                <input className="mycount" id="labelCount" ref={myRef} value="0" />
+                                <input className="mycount" id="labelCount" ref={myRef} value="0" readOnly/>
                             </div>
                         ) : null
                     }
@@ -91,9 +135,10 @@ const Header = (props) => {
                 </li>
                 <li className="general">
                     {
-                        get == 0 && location == '/' ? (
+                        get == 0  ? (
                             <button
-                                label="Submit" onClick={logout}
+                                // label="Submit" onClick={logout}
+                                label="Submit" onClick={openLogOut}
                                 className="buttonLogOut"
                             >
                                 <img className="log_out_img general" src="https://www.nicepng.com/png/full/271-2715115_exit-logout-comments-logout-icon-png-transparent.png" />
@@ -101,10 +146,12 @@ const Header = (props) => {
                     }
 
                 </li>
-
+ {
+                logOut ? <PopupLogOut /> : null
+            }
             </ul>
 
-
+           
         </div>
     )
 }

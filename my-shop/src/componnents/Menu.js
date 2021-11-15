@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './../styles/Menu.css'
 
 
@@ -12,12 +13,10 @@ const Menu = () => {
 
         elem.display = 'none';
     }
-function Session(){
-    sessionStorage.setItem("name",'Anna')
-}
-
-Session()
-let loc = window.location.pathname;
+// function Session(){
+//     sessionStorage.setItem("name",'Anna')
+// }
+// Session();
 
     return (
         <div className="menu">
@@ -28,10 +27,26 @@ let loc = window.location.pathname;
                 <p>Categories</p>
                 <br />
                 <div className="category_select" id="category_select">
+                <Link to={"/categories/jeans"}>
+                    <p className="category_text">Jeans</p>
+                    </Link>
+                    <Link to={"/categories/bag"}>
                     <p className="category_text">Bags</p>
+                    </Link>
+                    <Link to={"/categories/shirt"}>
                     <p className="category_text">Shirt</p>
-                    <p className="category_text">Cosmetics</p>
+                    </Link>
+                   
+                    <Link to={"/categories/boots"}>
 
+                    <p className="category_text">Boots</p>
+                    </Link>
+                    <Link to={"/categories/winter%20coat"}>
+                    <p className="category_text">Winter coat</p>
+                    </Link>
+                    <Link to={"/categories/cosmetics"}>
+                    <p className="category_text">Cosmetics</p>
+                    </Link>
                 </div>
             </li>
             <li key="2">

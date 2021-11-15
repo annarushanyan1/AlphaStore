@@ -13,7 +13,7 @@ let contactList = [];
 let sqlite3 = require('sqlite3').verbose();
 //_______________________________________________________
 
-
+tokenGenerator();
 // open the database
 let sendedtoken = '';
 let valid;
@@ -109,6 +109,7 @@ function workWithDb(func, data) {
 
     if (func == "validation") {
         let array = data;//data= [userid, token];
+        console.log(112, array)
         let sql = `Select * from tokenUserId where userId = ${array[0]}`
         let Onerow = [];
         const promise = new Promise((resolve, reject) => {
@@ -188,7 +189,7 @@ function tokenGenerator() {
 
 }
 
-tokenGenerator();
+
 
 
 users.map(
@@ -519,3 +520,69 @@ app.post(
 )
 
 
+
+app.post(
+    '/api/getProductsByCategory', (req, res) => {
+        let product_name = req.body['name'];
+        console.log(product_name);
+
+        let db = new sqlite3.Database('./db/sql.db');
+        let sql = `Select * from products where name = "${product_name}"`
+        let array = [];
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach((row) => {
+                array.push(row)
+            });
+            console.log(array)
+            res.json(
+                {
+                    products: JSON.stringify(array)
+                }
+            )
+
+        })
+
+    }
+)
+
+
+app.post(
+    '/api/productsById', (req, res) => {
+        let id = req.body["userId"];
+        let token = req.body["token"];
+
+        let arr = [id, token];
+        let product = [];
+
+        let db = new sqlite3.Database('./db/sql.db');
+        let sql = `SELECT products FROM users where id = ${id}`;
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach(
+                (row) => {
+                    product.push(row);
+                }
+            )
+            let prd = JSON.parse(product[0]['products']);
+            console.log(572,prd);
+            // let prd = JSON.parse(rrr[0]["products"])[0]['products'];
+            // console.log(prd)
+            // console.log(578,JSON.parse(product["products"]));
+            res.json(
+                {
+                    products:JSON.stringify(prd)
+                }
+            )
+
+        }
+
+        );
+        db.close();
+    }
+
+)

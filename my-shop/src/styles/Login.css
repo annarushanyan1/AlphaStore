@@ -1,10 +1,9 @@
 .block{
     margin:0px 40%;
-    /* padding-left: 100px; */
     height: 500px;
     width: 400px;
+    /* background-color: white; */
 
-    /* border: 1px red dotted; */
 
 }
 
@@ -30,6 +29,9 @@
     border: none;
     text-indent: 10px;
     font-size: 20px;
+    display: flex;
+    margin: 0 auto;
+    border: 1px rgb(116, 116, 116) solid;
 }
 .inputStyleLogin:focus {
     background-color: rgb(232, 236, 230);
@@ -89,7 +91,17 @@
 
 
 @keyframes glow { 
-    0% { background-color:rgb(255, 209, 209); }
-    50% { background-color:rgb(253, 240, 215); }
-    100% { background-color:rgb(226, 255, 188); } 
+    0% { background-color:rgb(224, 195, 116); }
+    50% { background-color:rgb(195, 195, 195); }
+    100% { background-color:rgb(71, 71, 71); } 
+
+
+
+
+}
+
+.log_block{
+    background-color: white;
+    height: 300px;
+    width: 400px;
 }

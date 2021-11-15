@@ -1,0 +1,28 @@
+.cat{
+
+}
+
+.cat_map{
+    display: flex;
+    width: 60%;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.catg_img{
+    width: 200px;
+    height: 250px;
+    display: flex;
+    margin: 0 auto;
+}
+
+.catg_product{
+    margin: 15px;
+
+}
+
+.catg_product:hover{
+    box-shadow: 1px 5px 5px 5px #888888;
+
+}

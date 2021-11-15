@@ -61,15 +61,12 @@ export default class Dashbroad extends Component {
     }
 
     getingProducts() {
-        if (localStorage.getItem('products') != null) {
+        if (localStorage.getItem('products') !== null) {
 
             if (localStorage.getItem("products") !== '' || localStorage.getItem("products") !== "[]") {
-
                 this.products = JSON.parse(localStorage.getItem("products"));
-
             } else {
                 this.products = [];
-
             }
             for (let i = 0; i < this.products.length; i++) {
                 this.products[i]["index"] = i;
@@ -267,22 +264,22 @@ export default class Dashbroad extends Component {
                                 {
                                     this.filteredProducts.map(
                                         (item) => {
-
-
                                             return (
 
                                                 <div>
                                                     <div className="product" key={String(this.index++)} id={item['id']} index={item['index']} count={this.setingCounts(item['id'])}>
-                                                        
+                                                        <Link to={"/product/" + item['id']}>
                                                         <img className="image" src={item['img']} alt="bag"
                                                         onClick={() => {
-                                                            let id = item['id'];
-                                                            window.history.pushState({ "id":id }, 'productId',"http://localhost:3000/product");
-                                                            console.log(window.history)
-                                                            window.open("http://localhost:3000/product","_self")
+                                                            window.scroll(
+                                                                {
+                                                                    top:0
+                                                                }
+                                                            )
                                                         }}
-                                    
+    
                                                         />
+                                                        </Link>
                                                         <br />
                                                         <div className="labelCount">
 
@@ -333,5 +330,3 @@ const styles = createUseStyles({
         width: erk
     }
 });
-
-

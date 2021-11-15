@@ -16,42 +16,41 @@ import ContactUs from './componnents/ContactUs';
 import AboutUs from './componnents/AboutUs';
 import OneItem from './componnents/OneItem';
 import Menu from './componnents/Menu';
+import ProductsFromCategories from './componnents/ProductsFromCategories';
 
 
 
 
 export default class App extends Component {
-  state={
+  state = {
     count: 0
   }
-  setWord(){
+  setWord() {
   }
-  componentDidMount(){
+  componentDidMount() {
     fetch(
-      '/api/shopProducts' 
+      '/api/shopProducts'
     )
-    .then(
-    res=>res.json()
-    )
-    .then(
-      data =>{
-      localStorage.setItem("shopProducts",JSON.stringify(data['products']))
-    
-      }
-    )
+      .then(
+        res => res.json()
+      )
+      .then(
+        data => {
+          let product = data['products'];
+          localStorage.setItem("shopProducts", JSON.stringify(product));
+        }
+      )
   }
-  menuShown(){
+  menuShown() {
     let loc = window.location.pathname;
-    if(loc == '/login')
-    {
+    if (loc == '/login') {
       return null
     }
-    return <Menu/>
+    return <Menu />
   }
   render() {
     let get = localStorage.getItem("user")
-    if(get == 1)
-    {
+    if (get == 1) {
       localStorage.removeItem("products")
       localStorage.removeItem("firstname")
       localStorage.removeItem("lastname")
@@ -65,17 +64,17 @@ export default class App extends Component {
     }
     return (
       <div className="App">
-         <BrowserRouter>
-          <Header count={this.state.count}/>
-          
+        <BrowserRouter>
+          <Header count={this.state.count} />
           <Switch>
-            <Route exact path="/" render={(props) => <Home countCart={countCart} {...props} /> }/>
+            <Route exact path="/" render={(props) => <Home countCart={countCart} {...props} />} />
             <Route path="/login" component={Login} />
             <Route path="/registration" component={Registration} />
             <Route path="/account" component={Dashboard} />
             <Route path="/contactUs" component={ContactUs} />
             <Route path="/aboutUs" component={AboutUs} />
-            <Route path="/product" component={OneItem}/>
+            <Route path="/categories/:name" render={(props) => <ProductsFromCategories  {...props} />} />
+            <Route path="/product/:id" render={(props) => <OneItem  {...props} />} />
           </Switch>
           <Footer />
 

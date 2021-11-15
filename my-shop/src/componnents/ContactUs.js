@@ -8,6 +8,13 @@ const ContactUs = () => {
     const [subscribed, setSubscribed] = useState(false);
     const [selected, setSelected] = useState("");
 
+    function goBackToHome(){
+        window.scroll({
+            top: 0
+        });
+        window.history.back();
+
+    }
 
     function handleSend(e) {
         if (name != "" && email != "" && message != "") {
@@ -30,11 +37,15 @@ const ContactUs = () => {
                 })
         }
     }
+  
     return (
         <div className="formMain">
             <form id="contact_form" accept-charset="UTF-8" class="contact-form">
-                <p className="title_form_contact">Contact us</p>
+                <p onClick={goBackToHome} className="back"> &nbsp;&nbsp; <img className="backImage" src="https://www.pinclipart.com/picdir/big/521-5215772_transparent-left-arrow-png-left-arrow-black-and.png"/></p>
+                <br/>
+                <br/>
 
+                <p className="title_form_contact">Contact us</p>
                 <p className="title_form_contact_text">Write an email to    alfaStore@gmail.com <br />
                     Or give a call +374 11 111 111 (WhatsApp, Viber) GMT+4
                 </p>
