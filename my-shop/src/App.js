@@ -2,7 +2,6 @@ import Footer from './componnents/Footer';
 import Home from './componnents/Home';
 import Header from './componnents/Header';
 import Login from './componnents/Login';
-import Dashboard from './componnents/Dashboard';
 import './styles/App.css';
 import { Component } from 'react';
 import Registration from './componnents/Registration';
@@ -17,6 +16,7 @@ import AboutUs from './componnents/AboutUs';
 import OneItem from './componnents/OneItem';
 import Menu from './componnents/Menu';
 import ProductsFromCategories from './componnents/ProductsFromCategories';
+import Dash from './componnents/Dash';
 
 
 
@@ -40,17 +40,18 @@ export default class App extends Component {
           localStorage.setItem("shopProducts", JSON.stringify(product));
         }
       )
+
   }
   menuShown() {
     let loc = window.location.pathname;
-    if (loc == '/login') {
+    if (loc === '/login') {
       return null
     }
     return <Menu />
   }
   render() {
     let get = localStorage.getItem("user")
-    if (get == 1) {
+    if (Number(get) === 1) {
       localStorage.removeItem("products")
       localStorage.removeItem("firstname")
       localStorage.removeItem("lastname")
@@ -69,8 +70,8 @@ export default class App extends Component {
           <Switch>
             <Route exact path="/" render={(props) => <Home countCart={countCart} {...props} />} />
             <Route path="/login" component={Login} />
+            <Route path="/account" component={Dash} />
             <Route path="/registration" component={Registration} />
-            <Route path="/account" component={Dashboard} />
             <Route path="/contactUs" component={ContactUs} />
             <Route path="/aboutUs" component={AboutUs} />
             <Route path="/categories/:name" render={(props) => <ProductsFromCategories  {...props} />} />

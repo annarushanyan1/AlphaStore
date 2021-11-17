@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { withRouter } from "react-router";
 import './../styles/ProductsFromCategories.css'
 import Menu from "./Menu";
@@ -10,39 +10,31 @@ const ProductsFromCategories = (props) => {
     let [products, setPorducts] = useState([])
     let name = props.match.params.name;
 
-    let history = [];
     useEffect(
         () => {
-            history.push(name)
             fetching()
         }, [name]
     )
 
-    // if(name != history[history.length-1])
-    // {
-
-    //             fetching()
-
-    // }
-
     function addtocart(e) {
 
         let active = localStorage.getItem('user');
-        if (active == 1) {
+        if (Number(active) === 1) {
             this.setState({ shown: true })
+            return
         }
-
+        
         let itemId = e.target.parentElement.getAttribute("id");
         let userId = localStorage.getItem("userId");
         let token = localStorage.getItem("token");
+
         let sendingData = {
             itemId, userId, token
         }
         if (active == 0) {
-           
-
             let labelCount = document.getElementById("labelCount");
-            labelCount.value = Number(labelCount.value) + 1;
+            labelCount.value++;
+            localStorage.setItem("count",labelCount.value)
 
             fetch(
                 '/api/addToCart',
@@ -53,37 +45,12 @@ const ProductsFromCategories = (props) => {
                     },
                     body: JSON.stringify(sendingData) // body data type must match "Content-Type" header
                 })
-                .then(
-                    res => res.json()
-                )
-                .then(
-                    data => {
-                        console.log(data["sendingAgainToClient"])
-                        let now = JSON.parse(localStorage.getItem("products"));
-
-                        console.log(typeof now);
-                        let list;
-
-                        if (localStorage.getItem("products")) {
-                            list = [];
-                            console.log(localStorage.getItem("products"));
-                            list = JSON.parse(localStorage.getItem("products"));
-                        } else {
-                            list = [];
-                        }
-                        console.log(list)
-                        list.push(
-                            data["sendingAgainToClient"]
-                        )
-                        localStorage.setItem('products', JSON.stringify(list))
-
-                    }
-                )
+                
             // alert("Added")
         }
     }
     function goBackToHome() {
-        window.history.back();
+        window.open('/','_self');
         window.scroll({
             top: 0
         });
@@ -131,7 +98,16 @@ const ProductsFromCategories = (props) => {
                             return (
                                 <div className="catg_product" key={item['id']} id={item['id']}>
                                     <Link to={"/product/" + item['id']}>
-                                        <img className="catg_img" src={item['img']}/>
+                                        <img className="catg_img" src={item['img']}
+                                        onClick={()=>{
+                                            window.scroll(
+                                                {
+                                                    top:0
+                                                }
+                                            )
+                                        }}
+                                        
+                                        />
                                     </Link>
                                     <div className="priceLabel">
                                         {/* <label>Name</label> */}

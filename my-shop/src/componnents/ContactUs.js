@@ -17,7 +17,7 @@ const ContactUs = () => {
     }
 
     function handleSend(e) {
-        if (name != "" && email != "" && message != "") {
+        if (name !== "" && email !== "" && message !== "") {
             let sendingObject = {
                 name,
                 email,
@@ -98,7 +98,7 @@ const ContactUs = () => {
                         name="contact[subscribe-to-the-newsletter]"
                         value="Subscribe to the newsletter"
                         onClick={(e) => {
-                            if (subscribed == false) {
+                            if (subscribed === false) {
                                 setSubscribed(true)
                             }
                             else {

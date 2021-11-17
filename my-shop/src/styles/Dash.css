@@ -1,0 +1,88 @@
+.Dash_main{
+padding-top: 100px;
+margin-bottom: 200px;
+
+}
+
+.clientName{
+    font-size: 20px;
+    display: flex;
+    margin-left: 20%;
+    padding-bottom: 25px;
+}
+
+.emptytext{
+    display: flex;
+    justify-content: center;
+    margin:0 auto;
+    width: 400px;
+    font-size: 24px;
+    margin-bottom: 200px;
+    padding: 10px;
+    color: rgb(81, 81, 145);
+}
+.noUser_block{
+    padding-top: 100px;
+    padding-bottom: 50px;
+    background-color: #f2f1f0;
+}
+.noUser_block_text{
+    background-color: rgb(160, 53, 53);
+    font-size: 30px;
+    color: white;
+    text-align: center;
+}
+.noUser_image{
+    width: 40%;
+    display:flex;
+    margin:0 auto
+
+}
+
+.totalAmount_block{
+    width: 300px;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+    padding: 10px 0;
+    margin-right: 18%;
+}
+
+.emptytext_image{
+    width: 300px;
+    height: 4000;
+    display: flex;
+    margin:0 auto;
+}
+._buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.text_total{
+    padding-right: 100px;
+}
+
+.totalAmount_block{
+    background-color: #2f5289;
+    font-size: 20px;
+    color: white;
+    margin-top: 15px;
+    
+
+}
+.prdList{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.image_cart{
+    width: 85px;
+    height: 110px;
+    cursor: pointer;
+}
+
+.product{
+    border: 1px rgb(185, 185, 185) solid;
+}

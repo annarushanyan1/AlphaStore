@@ -54,17 +54,19 @@ export default class Login extends Component {
                         localStorage.setItem('user', "0");
                         localStorage.setItem('userId', data['userId']);
                         localStorage.setItem('token', data['token']);
-                        localStorage.setItem('firstname', data['firstname']);
-                        localStorage.setItem('lastname', data['lastname']);
-                        localStorage.setItem("products", JSON.parse(data["products"]))
-                        // console.lastname(data["products"])
+                        localStorage.setItem('fullname', data['fullname']);
 
+                        localStorage.setItem("count", JSON.parse(JSON.parse(data["products"])).length)
+                        // console.lastname(data["products"])
+                        // productsCount
                         window.location = "/";
 
-                    } else {
-                        localStorage.setItem("error", 404);
-                        window.location = "/"
-                    }
+                    } 
+                    
+                    // else {
+                    //     localStorage.setItem("error", 404);
+                    //     window.location = "/"
+                    // }
 
 
                 }

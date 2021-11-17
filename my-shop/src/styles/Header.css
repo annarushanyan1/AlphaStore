@@ -7,27 +7,30 @@
     height: 70px;
     position:fixed;
     z-index: 100;
-    
 }
 .general{
   cursor:pointer;
     pointer-events: auto;
+    position: relative;
+}
+
+.cartBlock{
+  display: flex;
 }
 .mycount {
   all: unset;
-  pointer-events: none;
-  position:absolute;
-  z-index: 10;
-  top: 10px;
-  display:block;
+  position: relative;
+
+  top: -18px;
+  right: 6px;
   background-color: red;
   width: 20px;
+  height: 20px;
   text-align: center;
   border-radius: 10px;
   color: white;
   font-size: 17px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  right: 16%;
 }
 
 .home{
@@ -43,14 +46,17 @@
   width: 50px;
   height: 60px;
 }
-
 /*sssssssssssssssssssssssssssss*/
 
 .log_out_img{
   padding-top: 5px;
   width: 40px;
   height: 40px;
+  position: relative;
+  left: -11px;
 }
+
+
 
 
 

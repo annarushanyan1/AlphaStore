@@ -1,10 +1,11 @@
 .home_main_div{
-    background-color: rgb(240, 215, 195);
+    background-color: rgb(255, 255, 255);
+    min-width: 700px;
 
 }
 
 .userList{
-    background-color: rgb(248, 206, 199);
+    background-color: rgb(255, 255, 255);
     padding-bottom: 50px;
 
 }
@@ -43,15 +44,20 @@
 .mainH{
 width: 60%;
 background-color: rgb(220, 220, 220);
-display: flex;
+/* display: flex;
 flex-direction: row;
 justify-content: space-around;
-flex-wrap: wrap;
+flex-wrap: wrap; */
 margin:0 auto;
-/* margin-bottom: 50px; */
 
 }
 
+.mainH_for_flex{
+    display: flex;
+flex-direction: row;
+justify-content: space-around;
+flex-wrap: wrap;
+}
 .imageH{
     width: 210px;
     height: 270px;
@@ -89,6 +95,10 @@ margin:0 auto;
     box-shadow: 0 5px rgb(7, 7, 7);
 }
 
+.noResult_image{
+    width: 90%;
+
+}
 .popUpWindow{
     background-color: rgb(251, 114, 114);
     width: 500px;
@@ -125,7 +135,7 @@ margin:0 auto;
     border-radius: 5px;
 }
 
-/*dddddddddddddddd*/
+
 .popUpWindowItem{
     width: 250px;
     height: 320px;
@@ -154,8 +164,6 @@ margin:0 auto;
     position: fixed;
     top: 10px;
     z-index: 1000;
-    /* display: flex; */
-    /* justify-content: center; */
     margin-left: 40%;
 }
 
@@ -164,15 +172,6 @@ margin:0 auto;
     height: 40px;
 }
 
-
-
-
-/* @media  screen and (max-width: 600px) {
-    .wrapper{
-        display: none;
-    }
-
-} */
 .logoA_div{
     background-color: #fff;
 }
@@ -193,4 +192,36 @@ margin:0 auto;
     position: absolute;
     right: 0;
     top:0
+}
+
+
+.noResult{
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.noResult_text{
+    font-size: 30px;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 127px 0;    
+}
+
+@media  screen and (max-width: 1100px) {
+    .searchFromAbove{
+        position: relative;
+        margin:0 auto;
+        z-index: 0;
+    }
+}
+
+.recommend_you{
+display: flex;
+flex-direction: row;
+margin-left: 20%;
+padding: 10px 0;
+font-size: 16px;
+font-weight: 600;
 }

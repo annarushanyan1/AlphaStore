@@ -7,17 +7,12 @@ const Registration = () => {
     const [lastname, setLastname] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
-    let yn = localStorage.getItem('yn');
-
-    console.log("yn = " + yn)
-
     function handleRegister() {
         var CryptoJS = require("crypto-js");
         var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(password), 'my-secret-key@123').toString();
 
         console.log(ciphertext)
-        if (firstname != "" && lastname != "" && username != "" && password != "") {
+        if (firstname !== "" && lastname !== "" && username !== "" && password !== "") {
             let sendingData = {
                 firstname, lastname, username,
                 "password": ciphertext
@@ -38,13 +33,6 @@ const Registration = () => {
                 .then(
                     data => {
                         console.log(data)
-                        if (data["success"] == true) {
-                            yn = true;
-                            localStorage.setItem('yn', yn)
-
-                        }
-
-
                         console.log("13")
                         setFirstname("")
                         setLastname("")

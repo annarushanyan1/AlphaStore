@@ -13,10 +13,10 @@ const Menu = () => {
 
         elem.display = 'none';
     }
-// function Session(){
-//     sessionStorage.setItem("name",'Anna')
-// }
-// Session();
+    // function Session(){
+    //     sessionStorage.setItem("name",'Anna')
+    // }
+    // Session();
 
     return (
         <div className="menu">
@@ -27,26 +27,34 @@ const Menu = () => {
                 <p>Categories</p>
                 <br />
                 <div className="category_select" id="category_select">
-                <Link to={"/categories/jeans"}>
-                    <p className="category_text">Jeans</p>
-                    </Link>
-                    <Link to={"/categories/bag"}>
-                    <p className="category_text">Bags</p>
-                    </Link>
-                    <Link to={"/categories/shirt"}>
-                    <p className="category_text">Shirt</p>
-                    </Link>
-                   
-                    <Link to={"/categories/boots"}>
+                    <div className="collection_flex">
+                    <div className="clothes">
+                        <Link to={"/categories/jeans"} className="link_category">
+                            <p className="category_text">Jeans</p>
+                        </Link>
+                        <Link to={"/categories/shirt"} className="link_category">
+                            <p className="category_text">Shirt</p>
+                        </Link>
 
-                    <p className="category_text">Boots</p>
-                    </Link>
-                    <Link to={"/categories/winter%20coat"}>
-                    <p className="category_text">Winter coat</p>
-                    </Link>
-                    <Link to={"/categories/cosmetics"}>
-                    <p className="category_text">Cosmetics</p>
-                    </Link>
+                        <Link to={"/categories/boots"} className="link_category">
+
+                            <p className="category_text">Boots</p>
+                        </Link>
+                        <Link to={"/categories/winter%20coat"} className="link_category">
+                            <p className="category_text">Winter coat</p>
+                        </Link>
+                    </div>
+
+                    <div className="mixed">
+                    <Link to={"/categories/bag"} className="link_category">
+                            <p className="category_text">Bags</p>
+                        </Link>
+                        <Link to={"/categories/cosmetics"} className="link_category">
+                            <p className="category_text">Cosmetics</p>
+                        </Link>
+                    </div>
+                    </div>
+
                 </div>
             </li>
             <li key="2">

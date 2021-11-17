@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
+const fs = require('fs')
+
 
 var CryptoJS = require("crypto-js");
 var jwt = require("jsonwebtoken");
@@ -109,7 +111,6 @@ function workWithDb(func, data) {
 
     if (func == "validation") {
         let array = data;//data= [userid, token];
-        console.log(112, array)
         let sql = `Select * from tokenUserId where userId = ${array[0]}`
         let Onerow = [];
         const promise = new Promise((resolve, reject) => {
@@ -118,7 +119,6 @@ function workWithDb(func, data) {
                     throw err;
                 }
                 rows.forEach((row) => {
-                    console.log("row 120: ", row)
                     Onerow.push(row)
                 });
                 if (Onerow[0]) {
@@ -132,6 +132,7 @@ function workWithDb(func, data) {
             }
             );
         });
+
         promise.then(
             (item) => {
                 if (item) {
@@ -234,7 +235,6 @@ app.post('/api/login', (req, res) => {
         if (token == undefined || token == '') {
             resolve(sendedtoken)
         }
-
     });
 
     promise.then(
@@ -244,10 +244,10 @@ app.post('/api/login', (req, res) => {
                 {
                     'isUser': check,
                     'userId': userdata["id"],
-                    'firstname': userdata['firstname'],
-                    'lastname': userdata['lastname'],
+                    'fullname': userdata['firstname']+" "+userdata['lastname'],
                     'products': JSON.stringify(userdata['products']),
-                    'token': token
+                    'token': token,
+                    'productsCount': userdata['products'].length
                 }
             )
         }
@@ -263,12 +263,15 @@ app.get('/api/users', (req, res) => {
 });
 app.post('/api/addToCart', (req, res) => {
     workWithDb('get')
+
     let itemId = req.body["itemId"];
     let userId = req.body["userId"];
     let token = req.body["token"];
+    console.log(270,itemId)
     let arr = [userId, token]
     let isUser = workWithDb("validation", arr);
-    if (isUser) {
+    console.log(isUser)
+    if (true) {
         let sendingAgainToClient = {};
         for (let i = 0; i < users.length; i++) {
             if (users[i]['id'] == Number(userId)) {
@@ -434,7 +437,6 @@ app.post(
                     // let jsonForDb = JSON.stringify(sendingAgainToClient);
                     let array = [data, userId]
                     // console.log(array)
-                    console.log("updating");
                     workWithDb("updateProduct", array)
                     res.json(
                         {
@@ -497,19 +499,31 @@ app.post(
                 rows.forEach((row) => {
                     contactList.push(row);
                 });
+
+                if (contactList == undefined) {
+                    contactList = []
+                }
                 resolve(contactList);
             });
             db.close();
 
         });
-        let newId, str;
+        let str;
         myPromise.then(
             (res) => {
                 let list = res;
-                newId = list[list.length - 1]["ID"] + 1;
+                let newId = list[list.length - 1]["ID"] + 1;
+                if (newId == undefined) {
+                    newId = 1;
+                }
                 str = `INSERT INTO contactUs VALUES(${newId},"${fullname}","${email}","${message}","${subscribed}","${selected}")`
                 workWithDb("insert", str);
-
+                return "done"
+            }
+        ).then(
+            (res) => {
+                console.log(res)
+                writeCSV()
             }
         ).catch(
             (err) => {
@@ -537,6 +551,10 @@ app.post(
                 array.push(row)
             });
             console.log(array)
+
+
+
+
             res.json(
                 {
                     products: JSON.stringify(array)
@@ -553,36 +571,150 @@ app.post(
     '/api/productsById', (req, res) => {
         let id = req.body["userId"];
         let token = req.body["token"];
+        // let arr = [id, token];
+        let productsById = [];
+        if (id) {
+            let db = new sqlite3.Database('./db/sql.db');
+            let sql = `SELECT products FROM users where id = ${id}`;
+            db.all(sql, [], (err, rows) => {
+                if (err) {
+                    throw err;
+                }
+                rows.forEach(
+                    (row) => {
+                        productsById.push(row);
+                    }
+                )
+                console.log(productsById)
+                let prd = JSON.parse(productsById[0]["products"]);
+                console.log(products)
+                for (let i = 0; i < prd.length; i++) {
+                    let itemId = prd[i]['id'];
+                    for (let j = 0; j < products.length; j++) {
+                        if (products[j]["id"] == itemId) {
+                            console.log("Yesssssss");
 
-        let arr = [id, token];
-        let product = [];
+                            prd[i]['price'] = products[j]["price"];
 
-        let db = new sqlite3.Database('./db/sql.db');
-        let sql = `SELECT products FROM users where id = ${id}`;
-        db.all(sql, [], (err, rows) => {
-            if (err) {
-                throw err;
+                        }
+                    }
+                }
+                console.log(572, prd);
+
+                let setId = new Set();
+                prd.map(
+                    item => {
+                        setId.add(
+                            item['id']
+                        )
+                    }
+
+                );
+
+                let arrayfromSet = Array.from(setId)
+                let filteredList = [];
+                for (let i = 0; i < arrayfromSet.length; i++) {
+                    for (let j = 0; j < prd.length; j++) {
+                        if(prd[j]["id"] == arrayfromSet[i])
+                        {
+                            filteredList.push(prd[j])
+                            break
+                        }
+                    }
+                }
+                let idANDcount = [];
+                for (let i = 0; i < arrayfromSet.length; i++) {
+                    let itemId = arrayfromSet[i]
+                    let arr = [itemId];
+                    let count = 0;
+                    for (let j = 0; j < prd.length; j++) {
+                        if (prd[j]["id"] == itemId) {
+                            // console.log("yess")
+                            count++;
+                        }
+                    }
+                    arr.push(count);
+                    idANDcount.push(arr);
+                }
+
+                for(let i = 0; i < idANDcount.length;i++){
+                    let count = idANDcount[i][1];
+                    filteredList[i]["count"] = count;
+                }
+                console.log(filteredList)
+
+                // let prd = JSON.parse(rrr[0]["products"])[0]['products'];
+                // console.log(prd)
+                // console.log(578,JSON.parse(product["products"]));
+                //inqy mi hat arraya veri mejin menak ida u img/ indz petqa price
+
+
+                res.json(
+                    {
+                        products: JSON.stringify(prd),
+                        filteredList: filteredList
+                    }
+                )
+
             }
-            rows.forEach(
-                (row) => {
-                    product.push(row);
-                }
-            )
-            let prd = JSON.parse(product[0]['products']);
-            console.log(572,prd);
-            // let prd = JSON.parse(rrr[0]["products"])[0]['products'];
-            // console.log(prd)
-            // console.log(578,JSON.parse(product["products"]));
-            res.json(
-                {
-                    products:JSON.stringify(prd)
-                }
-            )
 
+
+            );
+            db.close();
         }
-
-        );
-        db.close();
     }
 
 )
+
+
+function writeCSV() {
+    let db = new sqlite3.Database('./db/sql.db');
+    let sql = 'Select * from contactUs';
+    let data = [];
+    db.all(sql, [], (err, rows) => {
+
+        if (err) {
+            throw err;
+        }
+        rows.forEach((row) => {
+            data.push(row)
+        });
+        let header = Object.keys(data[0]);
+        let str = '';
+        data.map(
+            item => {
+                let values = [];
+                for (const key in item) {//mi toky
+                    if (key == 'message') {
+                        let mess = item[key] + "";
+                        let newMess = mess.split(',').join(' |');
+                        console.log(635, newMess)
+
+                        values.push(newMess);
+
+                    } else {
+                        values.push(item[key])
+
+                    }
+
+                }
+                str += values + '\n'
+            }
+        );
+        str = header + '\n' + str;
+        fs.writeFile('messeges.csv', str, err => {
+            if (err) {
+                console.error(err)
+                return
+            }
+            //file written successfully
+        })
+
+    })
+    db.close()
+
+
+
+}
+
+// writeCSV()

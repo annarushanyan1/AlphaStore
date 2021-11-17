@@ -10,7 +10,7 @@ const AboutUs = () => {
     }
     return (
         <div className="about_us_main_block">
-            <p onClick={goBackToHome} className="back"> &nbsp;&nbsp; <img className="backImage" src="https://www.pinclipart.com/picdir/big/521-5215772_transparent-left-arrow-png-left-arrow-black-and.png"/></p>
+            <p onClick={goBackToHome} className="back"> &nbsp;&nbsp; <img className="backImage" src="https://www.pinclipart.com/picdir/big/521-5215772_transparent-left-arrow-png-left-arrow-black-and.png" alt="backImage"/></p>
 
 
             <div className="about_us_inner_block">

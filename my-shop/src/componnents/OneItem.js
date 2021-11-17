@@ -1,44 +1,19 @@
-import React, { Component, useState } from "react"
+import React, { useState } from "react"
 import './../styles/OneItem.css'
-import { Redirect } from "react-router-dom";
 import Popup from 'reactjs-popup';
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
-const PopupError = () => {
-    let active = localStorage.getItem("user");
-    if (active == 1) {
-        return (
-            <Popup open={true} position="top left">
-                {
-                    close => (
-                        <div className="popUpWindow">
-
-                            <a className="close" onClick={close}>
-                                <label className="closingLabel">X</label>
-                            </a>
-
-                            <p className="popUpText">You are not logged in,  Please,&nbsp; <a href="http://localhost:3000/login" className="aHref3"> Log In </a></p>
-
-
-                        </div>
-                    )}
-            </Popup>
-        );
-    }
-    return null
-
-}
-
 const OneItem = (props) => {
     let [count, setCount] = useState(1);
+
     let [shown, setShown] = useState(false);
     let products = JSON.parse(localStorage.getItem("shopProducts"));
     let id = props.match.params.id;
     console.log(id);
     let prd = products.find(
         (item) => {
-            if (item['id'] == id) {
+            if (Number(item['id']) === Number(id)) {
                 return true
             }
         }
@@ -78,11 +53,14 @@ const OneItem = (props) => {
         let sendingData = {
             itemId, userId, token
         }
+
         let itemCount = count;
         for (let i = 0; i < itemCount; i++) {
             if (active == 0) {
-                let labelCount = document.getElementById("labelCount");
-                labelCount.value = Number(labelCount.value) + 1;
+                let countAbove = document.getElementById("labelCount");
+                countAbove.value = Number(localStorage.getItem("count")) + 1;
+
+                localStorage.setItem("count",countAbove.value )
 
                 fetch(
                     '/api/addToCart',
@@ -96,29 +74,7 @@ const OneItem = (props) => {
                     .then(
                         res => res.json()
                     )
-                    .then(
-                        data => {
-                            console.log(data["sendingAgainToClient"])
-                            let now = JSON.parse(localStorage.getItem("products"));
-
-                            console.log(typeof now);
-                            let list;
-
-                            if (localStorage.getItem("products")) {
-                                list = [];
-                                console.log(localStorage.getItem("products"));
-                                list = JSON.parse(localStorage.getItem("products"));
-                            } else {
-                                list = [];
-                            }
-                            console.log(list)
-                            list.push(
-                                data["sendingAgainToClient"]
-                            )
-                            localStorage.setItem('products', JSON.stringify(list))
-
-                        }
-                    )
+                    
                 // alert("Added")
             }
         }
@@ -144,9 +100,9 @@ const OneItem = (props) => {
 
 
                             <div class="input-group">
-                                <input type="button" value="-" className="button-minus" data-field="quantity" onClick={() => { if (count == 1) { console.log("minValue") } else { setCount(--count) } }} />
-                                <input type="number" step="1" max="" min="1" value={count} name="quantity" className="quantity-field" />
-                                <input type="button" value="+" className="button-plus" data-field="quantity" onClick={() => { setCount(++count) }} />
+                                <input type="button" value="-"className="button-minus" onClick={() => { if (count == 1) { console.log("minValue") } else { setCount(--count) } }} />
+                                <input type="number" max="" min="1" value={count}  className="quantity-field" />
+                                <input type="button" value="+"  className="button-plus"  onClick={() => { setCount(++count) }} />
                             </div>
                             <button id="btnAddId" onClick={addtocart} className="btnAddf">Add to Cart</button>
 
@@ -158,13 +114,12 @@ const OneItem = (props) => {
             <div className="similars">
                 <p className="text recommended_text">Recommended For You</p>
                 <div className="recommend_main">
-
                     {
                         filterList.map(
                             (item) => {
                                 return (
 
-                                    <div className="recomment_block">
+                                    <div className="recomment_block" key={item["id"]}>
                                            <Link to={"/product/" + item['id']}>
                                             <img className="recommend_picture" src={item["img"]} onClick={()=>{window.scroll({top:0})}}/>
                                         </Link>
@@ -189,3 +144,29 @@ const OneItem = (props) => {
 }
 
 export default withRouter(OneItem)
+
+
+const PopupError = () => {
+    let active = localStorage.getItem("user");
+    if (Number(active) === 1) {
+        return (
+            <Popup open={true} position="top left">
+                {
+                    close => (
+                        <div className="popUpWindow">
+
+                            <a className="close" onClick={close}>
+                                <label className="closingLabel">X</label>
+                            </a>
+
+                            <p className="popUpText">You are not logged in,  Please,&nbsp; <a href="http://localhost:3000/login" className="aHref3"> Log In </a></p>
+
+
+                        </div>
+                    )}
+            </Popup>
+        );
+    }
+    return null
+
+}
