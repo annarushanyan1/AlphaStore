@@ -1,5 +1,5 @@
 .one-item_main{
-    padding-top: 100px;
+    padding-top: 80px;
 }
 .btnAddf{
     float: right;
@@ -32,7 +32,7 @@
     height: 400px
 }
 .separate{
-    margin-top: 200px;
+    margin-top: 180px;
     position: relative;
 }
 .one-item_main_picture{
@@ -44,6 +44,7 @@
 
 .product_part{
     display: flex;
+    margin-top: 20px;
 
 }
 
@@ -93,8 +94,6 @@ input::-webkit-inner-spin-button {
   clear: both;
   margin: 15px 0;
   position: relative;
-  margin-top: 40px;
-  margin-left: 10px;
 }
 
 .input-group input[type='button'] {
@@ -137,19 +136,21 @@ input[type="number"] {
 
 
 /* media */
-@media  screen and (max-width: 600px) {
+@media  screen and (max-width: 630px) {
     .product_part{
         flex-direction: column;
     }
     .one-item_main_picture{
         margin: 0 auto;
     }
-    /* .description{
+    .description{
+        margin-left: 12%;
         display: flex;
-        margin: 0 auto;
-    } */
+        flex-direction: column;
+    }
     .description_main{
         display: flex;
+height: 200px;
 
     }
     .description{
@@ -165,17 +166,24 @@ input[type="number"] {
     .input-group{
         margin-top:20px ;
     }
+    .separate{
+        margin-top: 0px;
+        position: relative;
+    }
+
+    .recommend_main{
+        justify-content: center;
+    }
+  }
 
 
+  .star_img{
+      width: 30px;
 
   }
 
 
-  
-
-
 .back{
-
     width: 140px;
     height: 24px;
     padding-top: 10px;
@@ -202,9 +210,9 @@ input[type="number"] {
 .recomment_block{
     /* flex-direction: column; */
     margin: 10px;
-    margin-bottom: 10px;
     margin-left: 0;
     margin-right: 10px;
+    margin-bottom: 20px;
 
 }
 
@@ -213,17 +221,12 @@ input[type="number"] {
 
 }
 
-.priceLabel_recommend{
-    /* display: block; */
-}
 
 .recommend_main{
-    padding-top: 50px;
-    width: 60%;
+    width: 70%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    /* justify-content: center; */
     margin: 0 auto;
 }
 
@@ -240,7 +243,6 @@ input[type="number"] {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 1px;
-    /* margin:0 8px; */
     background-color: black;
     margin: 0;
     padding: 10px 10px;

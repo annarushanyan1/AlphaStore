@@ -46,6 +46,7 @@ const Registration = () => {
                                     window.location.reload()
                                 }, 3000
                             )
+                            window.open("login","_self");
                         } else {
                             alert("User with that username already exists")
                         }
@@ -107,11 +108,6 @@ const Registration = () => {
                     />
                     <br />
                     <br />
-                    {/* <select name="gender" className="gender">
-                        <option value="none" selected disabled>Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select> */}
                     <br />
 
                     <div className="registerbtn">

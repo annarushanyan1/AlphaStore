@@ -51,11 +51,7 @@ function workWithDb(func, data) {
 
                 users.push(row)
             });
-
-
         });
-
-
     }
 
     if (func == 'insert') {
@@ -154,6 +150,7 @@ function workWithDb(func, data) {
     db.close();
 }
 
+
 workWithDb('getProducts');
 workWithDb('get');
 
@@ -170,7 +167,6 @@ function tokenGenerator() {
             userdata.push([row['id'], row['password']])
         });
 
-        console.log("aaa", userdata);
 
         let sqlDelete = 'DELETE FROM tokenUserId';
         db.run(sqlDelete);
@@ -247,7 +243,7 @@ app.post('/api/login', (req, res) => {
                     'fullname': userdata['firstname']+" "+userdata['lastname'],
                     'products': JSON.stringify(userdata['products']),
                     'token': token,
-                    'productsCount': userdata['products'].length
+                    'productsCount': JSON.parse(userdata['products']).length
                 }
             )
         }
@@ -263,13 +259,13 @@ app.get('/api/users', (req, res) => {
 });
 app.post('/api/addToCart', (req, res) => {
     workWithDb('get')
-
     let itemId = req.body["itemId"];
     let userId = req.body["userId"];
     let token = req.body["token"];
-    console.log(270,itemId)
+    console.log(270, itemId);
     let arr = [userId, token]
     let isUser = workWithDb("validation", arr);
+    console.log(276, token);
     console.log(isUser)
     if (true) {
         let sendingAgainToClient = {};
@@ -286,8 +282,12 @@ app.post('/api/addToCart', (req, res) => {
                     img: img
                 }
 
-                let prd = JSON.parse(users[i]['products'])
-
+                let prd;
+                if (users[i]['products'].length > 5) {
+                    prd = JSON.parse(users[i]['products'])
+                } else {
+                    prd = [];
+                }
                 prd.push(
                     sendingAgainToClient
                 )
@@ -385,16 +385,14 @@ app.get('/api/products', (req, res) => {
 app.post(
     '/api/deleteElem', (req, res) => {
 
-
         let userId = req.body['userId']
         let itemId = req.body['itemId']
+        console.log(387,userId,itemId)
 
         let key = -1;
 
         if (users[userId - 1]['products'] == "") {
-
             users[userId - 1]['products'] == JSON.stringify([])
-
         }
 
         let prd = JSON.parse(users[userId - 1]['products']);
@@ -403,7 +401,7 @@ app.post(
             (item) => {
                 key++;
                 if (item['id'] == itemId) {
-                    return key
+                    return key;
                 }
             }
         )
@@ -416,7 +414,6 @@ app.post(
 
     }
 )
-
 
 ///___________________
 app.post(
@@ -506,7 +503,6 @@ app.post(
                 resolve(contactList);
             });
             db.close();
-
         });
         let str;
         myPromise.then(
@@ -516,14 +512,11 @@ app.post(
                 if (newId == undefined) {
                     newId = 1;
                 }
+                
                 str = `INSERT INTO contactUs VALUES(${newId},"${fullname}","${email}","${message}","${subscribed}","${selected}")`
                 workWithDb("insert", str);
-                return "done"
-            }
-        ).then(
-            (res) => {
-                console.log(res)
                 writeCSV()
+                return "done"
             }
         ).catch(
             (err) => {
@@ -538,7 +531,7 @@ app.post(
 app.post(
     '/api/getProductsByCategory', (req, res) => {
         let product_name = req.body['name'];
-        console.log(product_name);
+        // console.log(product_name);
 
         let db = new sqlite3.Database('./db/sql.db');
         let sql = `Select * from products where name = "${product_name}"`
@@ -550,7 +543,7 @@ app.post(
             rows.forEach((row) => {
                 array.push(row)
             });
-            console.log(array)
+            // console.log(array)
 
 
 
@@ -585,22 +578,24 @@ app.post(
                         productsById.push(row);
                     }
                 )
-                console.log(productsById)
-                let prd = JSON.parse(productsById[0]["products"]);
-                console.log(products)
+                // console.log(productsById)
+                let prd = [];
+                if (productsById[0]["products"].length > 5) {
+                    prd = JSON.parse(productsById[0]["products"]);
+                }
+                // console.log(products)
                 for (let i = 0; i < prd.length; i++) {
                     let itemId = prd[i]['id'];
                     for (let j = 0; j < products.length; j++) {
                         if (products[j]["id"] == itemId) {
-                            console.log("Yesssssss");
+                            // console.log("Yesssssss");
 
                             prd[i]['price'] = products[j]["price"];
 
                         }
                     }
                 }
-                console.log(572, prd);
-
+                // console.log(572, prd);
                 let setId = new Set();
                 prd.map(
                     item => {
@@ -615,8 +610,7 @@ app.post(
                 let filteredList = [];
                 for (let i = 0; i < arrayfromSet.length; i++) {
                     for (let j = 0; j < prd.length; j++) {
-                        if(prd[j]["id"] == arrayfromSet[i])
-                        {
+                        if (prd[j]["id"] == arrayfromSet[i]) {
                             filteredList.push(prd[j])
                             break
                         }
@@ -637,11 +631,11 @@ app.post(
                     idANDcount.push(arr);
                 }
 
-                for(let i = 0; i < idANDcount.length;i++){
+                for (let i = 0; i < idANDcount.length; i++) {
                     let count = idANDcount[i][1];
                     filteredList[i]["count"] = count;
                 }
-                console.log(filteredList)
+                // console.log(filteredList)
 
                 // let prd = JSON.parse(rrr[0]["products"])[0]['products'];
                 // console.log(prd)
@@ -657,15 +651,11 @@ app.post(
                 )
 
             }
-
-
             );
             db.close();
         }
     }
-
 )
-
 
 function writeCSV() {
     let db = new sqlite3.Database('./db/sql.db');
@@ -688,7 +678,6 @@ function writeCSV() {
                     if (key == 'message') {
                         let mess = item[key] + "";
                         let newMess = mess.split(',').join(' |');
-                        console.log(635, newMess)
 
                         values.push(newMess);
 
@@ -711,10 +700,61 @@ function writeCSV() {
         })
 
     })
-    db.close()
-
-
-
+    db.close();
 }
 
-// writeCSV()
+// writeCSV();
+
+app.post(
+    '/api/buyItem', (req, res) => {
+        let itemId = req.body["itemId"];
+        let userId = req.body["userId"];
+   
+        let date = String(new Date());
+        console.log(723, itemId,userId);
+        let db = new sqlite3.Database('./db/sql.db');
+        let sql = `Select * from buyedList where userId = ${userId}`
+        let currentRows = [];
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach((row) => {
+                currentRows.push(row)
+            });
+            console.log(732,currentRows)
+            if(currentRows.length == 0){
+                let arr = [];
+                arr.push(itemId);
+                console.log(736,arr);
+                arr = JSON.stringify(arr)
+                let sql = `Insert into buyedList values (${userId},"${arr}","${date}")`
+                db.run(sql)
+            }else{
+                let arr = [];
+                console.log(currentRows);
+                let sql = `Select productIds from buyedList where userId = ${userId}`
+                let prd = "";
+                db.all(sql, [], (err, rows) => {
+                    if (err) {
+                        throw err;
+                    }
+                    rows.forEach(
+                        (row)=>{
+                          prd = row;  
+                        }
+                    )
+                    let arr = JSON.parse(prd.productIds);
+                    arr.push(itemId);
+                    arr = JSON.stringify(arr);
+                    let sql = `Update buyedList set productIds = "${arr}" where userId = ${userId}`
+                    db.run(sql)
+                }
+                );
+            }
+        });
+
+        console.log(718,date);
+    }
+)
+

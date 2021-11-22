@@ -147,8 +147,8 @@ flex-direction: column;
 }
 .product{
     display: flex;
-    width: 70%;
 justify-content: space-around;
+width: 80%;
 height: 120px;
 margin:0 auto;
 padding: 10px;

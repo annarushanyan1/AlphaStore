@@ -17,7 +17,7 @@ background-color: #ce9e6b;
 .menu > li{
     list-style-type: none; 
     text-transform: uppercase;
-    padding-right: 50px;
+    padding-right: 10%;
     padding-right: 50px;
     cursor: pointer;
     color: white;

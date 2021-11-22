@@ -4,6 +4,8 @@ import Popup from 'reactjs-popup';
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
+import Star from "./../images/star.png"
+
 const OneItem = (props) => {
     let [count, setCount] = useState(1);
 
@@ -60,7 +62,7 @@ const OneItem = (props) => {
                 let countAbove = document.getElementById("labelCount");
                 countAbove.value = Number(localStorage.getItem("count")) + 1;
 
-                localStorage.setItem("count",countAbove.value )
+                localStorage.setItem("count", countAbove.value)
 
                 fetch(
                     '/api/addToCart',
@@ -74,7 +76,7 @@ const OneItem = (props) => {
                     .then(
                         res => res.json()
                     )
-                    
+
                 // alert("Added")
             }
         }
@@ -94,15 +96,21 @@ const OneItem = (props) => {
                     <div className="description">
 
                         <p className="product_name">{prd["name"]}</p>
-                        <p className="product_price"> {prd["price"]}$</p>
 
+                        <div>
+                            <img className="star_img" src={Star} alt="star" />
+                            <img className="star_img" src={Star} alt="star" />
+                            <img className="star_img" src={Star} alt="star" />
+                            <img className="star_img" src={Star} alt="star" />
+                            <img className="star_img" src={Star} alt="star" />
+                        </div>
                         <div className="separate">
 
-
-                            <div class="input-group">
-                                <input type="button" value="-"className="button-minus" onClick={() => { if (count == 1) { console.log("minValue") } else { setCount(--count) } }} />
-                                <input type="number" max="" min="1" value={count}  className="quantity-field" />
-                                <input type="button" value="+"  className="button-plus"  onClick={() => { setCount(++count) }} />
+                            <p className="product_price"> US{prd["price"]}$</p>
+                            <div className="input-group">
+                                <input type="button" value="-" readOnly className="button-minus" onClick={() => { if (count == 1) { console.log("minValue") } else { setCount(--count) } }} />
+                                <input type="number" min="1" readOnly value={count} className="quantity-field" />
+                                <input type="button" value="+" readOnly className="button-plus" onClick={() => { setCount(++count) }} />
                             </div>
                             <button id="btnAddId" onClick={addtocart} className="btnAddf">Add to Cart</button>
 
@@ -120,15 +128,15 @@ const OneItem = (props) => {
                                 return (
 
                                     <div className="recomment_block" key={item["id"]}>
-                                           <Link to={"/product/" + item['id']}>
-                                            <img className="recommend_picture" src={item["img"]} onClick={()=>{window.scroll({top:0})}}/>
+                                        <Link to={"/product/" + item['id']}>
+                                            <img className="recommend_picture" src={item["img"]} onClick={() => { window.scroll({ top: 0 }) }} />
                                         </Link>
-                                      
-                                            <div className="priceLabel">
-                                                <label>Price</label>
-                                                <label>{item['price']}$</label>
-                                            </div>
-                                            <button id="btnAddId" onClick={addtocart} className="btnAdd_from_under">Add to Cart</button>
+
+                                        <div className="priceLabel">
+                                            <label>Price</label>
+                                            <label>{item['price']}$</label>
+                                        </div>
+                                        {/* <button id="btnAddId" onClick={addtocart} className="btnAdd_from_under">Add to Cart</button> */}
 
                                     </div>
 

@@ -11,9 +11,6 @@ import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import Menu from "./Menu";
 import { Link } from "react-router-dom";
 
-// let addId = document.getElementById("btnAddId");
-// let open = true;
-
 
 const PopupError = () => {
     let active = localStorage.getItem("user");
@@ -114,9 +111,6 @@ export default class Home extends Component {
     InputRef = React.createRef();
 
 
-
-    // this.state.products
-
     filterPosts = (items) => {
         return items;
     };
@@ -126,7 +120,7 @@ export default class Home extends Component {
         this.query = string;
         this.setState({ inputText: string });
 
-        // console.log(this.InputRef)
+
         console.log(string, results)
     }
     handleOnSelect = (item) => {
@@ -134,13 +128,13 @@ export default class Home extends Component {
         this.query = '';
         this.shownItems = [];
         let name = item['name'];
-        // this.setState({ noResult: false })
+
 
 
         if (name === '') {
         this.setState({ noResult: false })
 
-            this.state.allProducts.map(
+            this.state.products.map(
                 (item) => {
                     this.shownItems.push(item);
                 }
@@ -207,17 +201,16 @@ console.log(158,this.shownItems[0])
 
         }
     }
-    label() {
-        let elem = document.getElementById('labelCount');
-        elem.innerHTML += 1;
-    }
+
     //_____________________________________
     addtocart(e) {
         let active = localStorage.getItem('user');
+
         if (Number(active) === 1) {
             this.setState({ shown: true })
             return
         }
+
         let itemId = e.target.parentElement.getAttribute("id");
         let userId = localStorage.getItem("userId");
         let token = localStorage.getItem("token");
@@ -234,39 +227,38 @@ console.log(158,this.shownItems[0])
                     this.setState({ shown2: false })
                 }, 1500
             )
+
             let labelCount = document.getElementById("labelCount");
             let newCount =  Number(labelCount.value) + 1
             labelCount.value =newCount; 
             localStorage.setItem("count",newCount);
-        
+
             fetch(
                 '/api/addToCart',
                 {
-                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    method: 'POST', 
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(sendingData) // body data type must match "Content-Type" header
+                    body: JSON.stringify(sendingData)
                 })
                 
-            // alert("Added")
         }
     }
     render() {
         let keys = new Map();
+
         this.state.allProducts.map(
             item => {
                 keys.set(item["name"], item)
             }
         )
         let usingDate = Array.from(keys, ([name, value]) => (value));
-
         if (this.shownItems === [] || this.shownItems == '') {
             this.shownItems = this.state.products;
         }
-
-
         return (
+
             <div className="home_main_div">
                 {this.state.shown2 ? <PopupItem id={this.state.id} /> : null}
                 <Menu />
@@ -285,7 +277,6 @@ console.log(158,this.shownItems[0])
                             onSearch={this.handleOnSearch}
                             onSelect={this.handleOnSelect}
                             onFocus={this.handleOnFocus}
-                            // autoFocus
                             styling={
                                 {
                                     width: "400px",
@@ -309,13 +300,13 @@ console.log(158,this.shownItems[0])
                         {
                             this.state.noResult ? (
                                 <div className="noResult">
-                                    {/* <p className="noResult_text">
-                                        No Result
-                                    </p> */}
+
+
+
                                     <img className="noResult_image" src={NoResultImage}/>
                                 </div>
                             ) :
-                                // this.shownItems[0] == null ? (<div>No Result</div>): null
+
 
 
                                 this.shownItems.map(
@@ -335,7 +326,7 @@ console.log(158,this.shownItems[0])
                                                         }}
                                                     />
                                                 </Link>
-                                                {/* <img className="heart" src={EmptyHeart}/> */}
+
                                                 <br />
                                                 <div className="priceLabel">
                                                     <label>Name</label>

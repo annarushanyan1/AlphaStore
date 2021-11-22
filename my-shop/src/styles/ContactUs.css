@@ -161,12 +161,14 @@ font-size: 20px;
     position: absolute;
     left: 25%;
     color: rgb(0, 0, 0);
+    margin-bottom: 40px;
 }
 
 .backImage{
     width: 36px;
     height: 30px;
     cursor: pointer;
+    margin-bottom: 40px;
 }
 
 @media  screen and (max-width: 600px) {
@@ -195,5 +197,14 @@ font-size: 20px;
    }
    .title_form_contact{
     padding-bottom: 10px;
+   }
+
+   .backImage{
+       width: 33px;
+       position: relative;
+       left: -44px;
+
+
+
    }
 }

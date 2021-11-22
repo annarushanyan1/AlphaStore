@@ -29,11 +29,11 @@ const ContactUs = () => {
             fetch(
                 '/api/contactUs',
                 {
-                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(sendingObject) // body data type must match "Content-Type" header
+                    body: JSON.stringify(sendingObject)
                 })
         }
     }
@@ -41,7 +41,7 @@ const ContactUs = () => {
     return (
         <div className="formMain">
             <form id="contact_form" accept-charset="UTF-8" class="contact-form">
-                <p onClick={goBackToHome} className="back"> &nbsp;&nbsp; <img className="backImage" src="https://www.pinclipart.com/picdir/big/521-5215772_transparent-left-arrow-png-left-arrow-black-and.png"/></p>
+                <p onClick={goBackToHome} className="back"> &nbsp;&nbsp; <img className="backImage" alt="backImage" src="https://www.pinclipart.com/picdir/big/521-5215772_transparent-left-arrow-png-left-arrow-black-and.png"/></p>
                 <br/>
                 <br/>
 

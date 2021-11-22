@@ -28,18 +28,20 @@ export default class Login extends Component {
             return "Please fill all fields"
         }
         var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(this.state.password), 'my-secret-key@123').toString();
+        
         let sendingdata = {
             'username': this.state.username,
             'password': ciphertext
         }
+
         fetch(
             '/api/login',
             {
-                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                method: 'POST', 
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(sendingdata) // body data type must match "Content-Type" header
+                body: JSON.stringify(sendingdata) 
             })
 
             .then(
@@ -55,19 +57,13 @@ export default class Login extends Component {
                         localStorage.setItem('userId', data['userId']);
                         localStorage.setItem('token', data['token']);
                         localStorage.setItem('fullname', data['fullname']);
+                        localStorage.setItem("count", data['productsCount'])
 
-                        localStorage.setItem("count", JSON.parse(JSON.parse(data["products"])).length)
-                        // console.lastname(data["products"])
-                        // productsCount
+
                         window.location = "/";
 
                     } 
-                    
-                    // else {
-                    //     localStorage.setItem("error", 404);
-                    //     window.location = "/"
-                    // }
-
+                
 
                 }
 
@@ -82,13 +78,8 @@ export default class Login extends Component {
 
     render() {
 
-        let get = localStorage.getItem("user")
+        let get = localStorage.getItem("user");
 
-        // if (get == 0) {
-        //     return (
-        //         <Logout />
-        //     )
-        // } else {
         return (
 
             <div className="loginBlock">

@@ -35,3 +35,8 @@ button{
   }
   
 
+.forbiddenImage{
+  width: 70%;
+  display: flex;
+  margin: 0 auto;
+}

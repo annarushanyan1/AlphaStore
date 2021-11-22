@@ -58,7 +58,7 @@ const Header = (props) => {
     let myRef = React.createRef();
     useEffect(() => {
 
-        if (localStorage.getItem("user") == 0) {
+        if (Number(localStorage.getItem("user")) === 0) {
             let prd = JSON.parse(localStorage.getItem("count"));
             myRef.current.value = prd;
             console.log(myRef)
@@ -73,17 +73,17 @@ const Header = (props) => {
     }
     let get = localStorage.getItem("user");
     if (get === 1) {
-        count = 0;
+        setCount(0)
 
     }
     else {
 
-        if (localStorage.getItem("products") != '' || localStorage.getItem("products") != []) {
+        if (localStorage.getItem("products") !== '' || localStorage.getItem("products") !== []) {
             let list = JSON.parse(localStorage.getItem("products"));
-            // console.log(list)    
+
         }
     }
-    // setLocation(window.location.pathname);
+
     function openLogOut() {
         setLogOut(true);
         setTimeout(
@@ -94,8 +94,9 @@ const Header = (props) => {
     }
     return (
         <div className="header">
-
+    <Link to="/">
             <img className="logo main_logo" src={Logo} alt="logo" />
+            </Link>
             <p></p>
             <ul className="navbar">
 

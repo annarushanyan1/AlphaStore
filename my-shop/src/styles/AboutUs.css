@@ -23,3 +23,32 @@
 .about_us_title{
     text-align: center;
 }
+
+@media  screen and (max-width: 600px) {
+.about_us_inner_block{
+    width: 90%;
+}
+.text_about_us{
+    width: 100%;
+}
+}
+
+.thankYou_main{
+
+    padding-top: 100px;
+}
+
+.thankYou_block{
+
+    height: 500px;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.thankYou_text{
+    text-align: center;
+    padding-bottom: 40px;
+}

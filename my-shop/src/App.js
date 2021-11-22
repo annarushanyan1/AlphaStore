@@ -17,6 +17,9 @@ import OneItem from './componnents/OneItem';
 import Menu from './componnents/Menu';
 import ProductsFromCategories from './componnents/ProductsFromCategories';
 import Dash from './componnents/Dash';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
+import Forbidden from './PrivateRoute/Forbidden';
+import Buy from './componnents/Buy';
 
 
 
@@ -49,6 +52,13 @@ export default class App extends Component {
     }
     return <Menu />
   }
+  isAuthenticated() {
+    let status = localStorage.getItem("user");
+    if (Number(status) === 0) {
+      return true
+    }
+    return false
+  }
   render() {
     let get = localStorage.getItem("user")
     if (Number(get) === 1) {
@@ -69,13 +79,37 @@ export default class App extends Component {
           <Header count={this.state.count} />
           <Switch>
             <Route exact path="/" render={(props) => <Home countCart={countCart} {...props} />} />
+           
+            <PrivateRoute
+              path="/login"
+              isAuthenticated={!this.isAuthenticated()}
+            >
+             <Login/>
+            </PrivateRoute>
+
             <Route path="/login" component={Login} />
-            <Route path="/account" component={Dash} />
-            <Route path="/registration" component={Registration} />
+            {/* <Route path="/account" component={Dash} /> */}
+            {/* <Route path="/registration" component={Registration} /> */}
+            <PrivateRoute
+              path="/registration"
+              isAuthenticated={!this.isAuthenticated()}
+            >
+             <Registration/>
+            </PrivateRoute>
+
+            <PrivateRoute
+              path="/account"
+              isAuthenticated={this.isAuthenticated()}
+            >
+              <Dash />
+            </PrivateRoute>
             <Route path="/contactUs" component={ContactUs} />
             <Route path="/aboutUs" component={AboutUs} />
+            <Route path="/buy" component={Buy} />
             <Route path="/categories/:name" render={(props) => <ProductsFromCategories  {...props} />} />
             <Route path="/product/:id" render={(props) => <OneItem  {...props} />} />
+            <Route path="/forbidden" component={Forbidden} />
+
           </Switch>
           <Footer />
 
