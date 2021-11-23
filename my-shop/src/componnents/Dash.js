@@ -279,7 +279,12 @@ const Dash = () => {
                     ) : null
                 }
                 <p className="clientName">Client: {localStorage.getItem("fullname")}</p>
-                <p className="clientName">Shopping Cart</p>
+               {
+                   isEmpty == false ? (
+                         <p className="clientName">Shopping Cart</p> 
+                   ):null
+               }
+             
                 <div className="prdList">
                     {
                         isEmpty == true ? (

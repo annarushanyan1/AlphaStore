@@ -23,7 +23,7 @@ const PopupLogOut = () => {
 
         localStorage.removeItem("userId");
         localStorage.setItem("user", 1);
-        window.open("/","_self")
+        window.open("/", "_self")
     }
     function closing() {
         let elem = document.getElementById("logOutMain");
@@ -94,8 +94,8 @@ const Header = (props) => {
     }
     return (
         <div className="header">
-    <Link to="/">
-            <img className="logo main_logo" src={Logo} alt="logo" />
+            <Link to="/">
+                <img className="logo main_logo" src={Logo} alt="logo" />
             </Link>
             <p></p>
             <ul className="navbar">

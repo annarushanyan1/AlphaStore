@@ -13,10 +13,8 @@ let users = []
 let products = [];
 let contactList = [];
 let sqlite3 = require('sqlite3').verbose();
-//_______________________________________________________
 
 tokenGenerator();
-// open the database
 let sendedtoken = '';
 let valid;
 function workWithDb(func, data) {
@@ -72,7 +70,6 @@ function workWithDb(func, data) {
         });
     }
 
-    //getToken
     if (func == 'getToken') {
         let id = data;
         let sql = `Select token from tokenUserId where userId = ${id}`
@@ -83,7 +80,6 @@ function workWithDb(func, data) {
                     throw err;
                 }
                 rows.forEach((row) => {
-                    console.log("row: ", row)
                     token = row['token']
                     resolve(token);
                 });
@@ -93,7 +89,6 @@ function workWithDb(func, data) {
         promise.then(
             (item) => {
                 token = item;
-                console.log("97: ", item);
             }
         )
 
@@ -106,7 +101,7 @@ function workWithDb(func, data) {
     }
 
     if (func == "validation") {
-        let array = data;//data= [userid, token];
+        let array = data;
         let sql = `Select * from tokenUserId where userId = ${array[0]}`
         let Onerow = [];
         const promise = new Promise((resolve, reject) => {
@@ -154,7 +149,6 @@ function workWithDb(func, data) {
 workWithDb('getProducts');
 workWithDb('get');
 
-//giving token to the users 
 function tokenGenerator() {
     let db = new sqlite3.Database('./db/sql.db');
     let sql = `SELECT * FROM users`;
@@ -204,7 +198,6 @@ function checkf(username, password) {
     for (let i = 0; i < users.length; i++) {
         if (users[i]['username'] == username && users[i]['password'] == password) {
             isUser = true;
-            // console.log(users[i])
             userdata = users[i];
             console.log("is user")
             return 0
@@ -214,7 +207,6 @@ function checkf(username, password) {
 }
 
 app.post('/api/login', (req, res) => {
-    // workWithDb('get');//users 
     let user = req.body;
 
     let login = user["username"]
@@ -248,8 +240,8 @@ app.post('/api/login', (req, res) => {
             )
         }
     );
-    // userdata = {};
-    // isUser = false;
+
+
 
 });
 
@@ -262,10 +254,8 @@ app.post('/api/addToCart', (req, res) => {
     let itemId = req.body["itemId"];
     let userId = req.body["userId"];
     let token = req.body["token"];
-    console.log(270, itemId);
     let arr = [userId, token]
     let isUser = workWithDb("validation", arr);
-    console.log(276, token);
     console.log(isUser)
     if (true) {
         let sendingAgainToClient = {};
@@ -303,19 +293,7 @@ app.post('/api/addToCart', (req, res) => {
                 break
             }
         }
-
-        // let jsonForDb = JSON.stringify(sendingAgainToClient);
-
-        // let array = [jsonForDb,userId]
-
-        // workWithDb("updateProduct",array) 
-    } else {
-        res.json(
-            {
-                "isUser": false
-            }
-        )
-    }
+    } 
 })
 
 
@@ -328,7 +306,6 @@ app.post(
         let firstname = newUser['firstname']
         let lastname = newUser['lastname']
         let username = newUser['username']
-
 
         for (let i = 0; i < users.length; i++) {
             if (users[i]['username'] == newUser['username']) {
@@ -355,9 +332,9 @@ app.post(
             let nulll = ''
             let str = `INSERT INTO users VALUES(${newId},"${firstname}","${lastname}","${username}","${password}","${nulll}")`
             workWithDb("insert", String(str));
-            // workWithDb("insert", String(str));
+
             tokenGenerator();
-            // workWithDb("insert", String(str));
+
 
 
         }
@@ -371,10 +348,9 @@ app.post(
 )
 
 
-// console.log that your server is up and running
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-// create a GET route
 
 
 app.get('/api/products', (req, res) => {
@@ -415,7 +391,6 @@ app.post(
     }
 )
 
-///___________________
 app.post(
     '/api/update', (req, res) => {
         let userId = req.body["userId"];
@@ -431,9 +406,7 @@ app.post(
         promise.then(
             (item) => {
                 if (item) {
-                    // let jsonForDb = JSON.stringify(sendingAgainToClient);
                     let array = [data, userId]
-                    // console.log(array)
                     workWithDb("updateProduct", array)
                     res.json(
                         {
@@ -447,7 +420,6 @@ app.post(
                         }
 
                     }
-                    // workWithDb("updatelogout",data)
                 } else {
                     res.json(
                         {
@@ -475,7 +447,6 @@ app.get(
 
 
 //Countuct Us
-
 app.post(
     '/api/contactUs', (req, res) => {
 
@@ -531,7 +502,6 @@ app.post(
 app.post(
     '/api/getProductsByCategory', (req, res) => {
         let product_name = req.body['name'];
-        // console.log(product_name);
 
         let db = new sqlite3.Database('./db/sql.db');
         let sql = `Select * from products where name = "${product_name}"`
@@ -543,7 +513,6 @@ app.post(
             rows.forEach((row) => {
                 array.push(row)
             });
-            // console.log(array)
 
 
 
@@ -563,8 +532,6 @@ app.post(
 app.post(
     '/api/productsById', (req, res) => {
         let id = req.body["userId"];
-        let token = req.body["token"];
-        // let arr = [id, token];
         let productsById = [];
         if (id) {
             let db = new sqlite3.Database('./db/sql.db');
@@ -578,24 +545,20 @@ app.post(
                         productsById.push(row);
                     }
                 )
-                // console.log(productsById)
                 let prd = [];
                 if (productsById[0]["products"].length > 5) {
                     prd = JSON.parse(productsById[0]["products"]);
                 }
-                // console.log(products)
                 for (let i = 0; i < prd.length; i++) {
                     let itemId = prd[i]['id'];
                     for (let j = 0; j < products.length; j++) {
                         if (products[j]["id"] == itemId) {
-                            // console.log("Yesssssss");
 
                             prd[i]['price'] = products[j]["price"];
 
                         }
                     }
                 }
-                // console.log(572, prd);
                 let setId = new Set();
                 prd.map(
                     item => {
@@ -623,7 +586,6 @@ app.post(
                     let count = 0;
                     for (let j = 0; j < prd.length; j++) {
                         if (prd[j]["id"] == itemId) {
-                            // console.log("yess")
                             count++;
                         }
                     }
@@ -635,12 +597,6 @@ app.post(
                     let count = idANDcount[i][1];
                     filteredList[i]["count"] = count;
                 }
-                // console.log(filteredList)
-
-                // let prd = JSON.parse(rrr[0]["products"])[0]['products'];
-                // console.log(prd)
-                // console.log(578,JSON.parse(product["products"]));
-                //inqy mi hat arraya veri mejin menak ida u img/ indz petqa price
 
 
                 res.json(
@@ -674,7 +630,7 @@ function writeCSV() {
         data.map(
             item => {
                 let values = [];
-                for (const key in item) {//mi toky
+                for (const key in item) {
                     if (key == 'message') {
                         let mess = item[key] + "";
                         let newMess = mess.split(',').join(' |');
@@ -696,14 +652,14 @@ function writeCSV() {
                 console.error(err)
                 return
             }
-            //file written successfully
+
         })
 
     })
     db.close();
 }
 
-// writeCSV();
+
 
 app.post(
     '/api/buyItem', (req, res) => {
@@ -711,7 +667,6 @@ app.post(
         let userId = req.body["userId"];
    
         let date = String(new Date());
-        console.log(723, itemId,userId);
         let db = new sqlite3.Database('./db/sql.db');
         let sql = `Select * from buyedList where userId = ${userId}`
         let currentRows = [];
@@ -722,17 +677,15 @@ app.post(
             rows.forEach((row) => {
                 currentRows.push(row)
             });
-            console.log(732,currentRows)
+
             if(currentRows.length == 0){
                 let arr = [];
                 arr.push(itemId);
-                console.log(736,arr);
+
                 arr = JSON.stringify(arr)
                 let sql = `Insert into buyedList values (${userId},"${arr}","${date}")`
                 db.run(sql)
             }else{
-                let arr = [];
-                console.log(currentRows);
                 let sql = `Select productIds from buyedList where userId = ${userId}`
                 let prd = "";
                 db.all(sql, [], (err, rows) => {
@@ -753,8 +706,6 @@ app.post(
                 );
             }
         });
-
-        console.log(718,date);
     }
 )
 
