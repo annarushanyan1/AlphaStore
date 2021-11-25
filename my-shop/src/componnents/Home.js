@@ -5,7 +5,7 @@ import '../styles/Home.css';
 import '../styles/Products.css'
 import logoA from './../images/logoA.png'
 import Popup from 'reactjs-popup';
-import NoResultImage  from './../images/noResult.gif'
+import NoResultImage from './../images/noResult.gif'
 
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import Menu from "./Menu";
@@ -55,17 +55,17 @@ const PopupItem = (props) => {
     }, []);
 
     let active = localStorage.getItem("user");
-
     if (active == 0) {
         return (
             <Popup open={true} position="">
                 {
                     close => (
                         <div className="popUpWindowItem">
-                            <a href="http://localhost:3000/account">
-                                <img className="imageH" src={img} alt="image" />
-                            </a>
                             <p className="textAdded">Added</p>
+                            <a href="http://localhost:3000/account">
+                                <img className="imageH" src={img} alt="popup" />
+                            </a>
+
                         </div>
                     )
                 }
@@ -132,14 +132,15 @@ export default class Home extends Component {
 
 
         if (name === '') {
-        this.setState({ noResult: false })
+
+            this.setState({ noResult: false })
 
             this.state.products.map(
                 (item) => {
                     this.shownItems.push(item);
                 }
             )
-            this.forceUpdate()
+
         } else {
             this.state.allProducts.map(
                 item => {
@@ -149,9 +150,9 @@ export default class Home extends Component {
                 }
             )
         }
-console.log(158,this.shownItems[0])
+        console.log(158, this.shownItems[0])
         if (this.shownItems[0] === undefined) {
-            console.log(19,this.state.noResult)
+            console.log(19, this.state.noResult)
             this.setState({ noResult: true })
         }
 
@@ -165,9 +166,9 @@ console.log(158,this.shownItems[0])
     }
     handleEnter(event) {
         console.log(this.state.inputText)
-        if(this.state.inputText == undefined || this.state.inputText == ""){
-        this.setState({ noResult: false })
-            
+        if (this.state.inputText == undefined || this.state.inputText == "") {
+            this.setState({ noResult: false })
+
         }
         if (event.key === 'Enter') {
             console.log('enter');
@@ -192,7 +193,7 @@ console.log(158,this.shownItems[0])
 
         console.log(this.query)
         if (this.query == "") {
-        this.setState({ noResult: false })
+            this.setState({ noResult: false })
 
             this.shownItems = this.state.products;
             setTimeout(() => {
@@ -211,11 +212,11 @@ console.log(158,this.shownItems[0])
             return
         }
 
-        let itemId = e.target.parentElement.getAttribute("id");
+        let itemId = e.target.parentElement.parentElement.getAttribute("id");
         let userId = localStorage.getItem("userId");
         let token = localStorage.getItem("token");
 
-        
+
         let sendingData = {
             itemId, userId, token
         }
@@ -229,20 +230,20 @@ console.log(158,this.shownItems[0])
             )
 
             let labelCount = document.getElementById("labelCount");
-            let newCount =  Number(labelCount.value) + 1
-            labelCount.value =newCount; 
-            localStorage.setItem("count",newCount);
+            let newCount = Number(labelCount.value) + 1
+            labelCount.value = newCount;
+            localStorage.setItem("count", newCount);
 
             fetch(
                 '/api/addToCart',
                 {
-                    method: 'POST', 
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(sendingData)
                 })
-                
+
         }
     }
     render() {
@@ -265,7 +266,7 @@ console.log(158,this.shownItems[0])
                 <div className="logoA_div">
                     <img className="logoA" src={logoA} />
                 </div>
-                <hr/>
+                <hr />
                 <div className="search searchFromAbove"
                     ref={this.InputRef}
                     onKeyPress={this.handleEnter}
@@ -291,8 +292,8 @@ console.log(158,this.shownItems[0])
                     this.state.shown ? <PopupError /> : null
                 }
                 <p className="recommend_you" id="recommend_you"># We recommend you only the best products</p>
-                <hr/>
-                <br/>
+                <hr />
+                <br />
                 <div className="mainH"
                 >
 
@@ -303,7 +304,7 @@ console.log(158,this.shownItems[0])
 
 
 
-                                    <img className="noResult_image" src={NoResultImage}/>
+                                    <img className="noResult_image" src={NoResultImage} />
                                 </div>
                             ) :
 
@@ -313,30 +314,33 @@ console.log(158,this.shownItems[0])
                                     (item) => {
                                         return (
                                             <div name={item['name']} className="productH" id={item['id']} key={item['id']}>
-                                                <Link to={"/product/" + item['id']}>
-                                                    <img className="imageH"
-                                                        src={item['img']}
-                                                        alt="bag"
-                                                        onClick={() => {
-                                                            window.scroll(
-                                                                {
-                                                                    top: 0
-                                                                }
-                                                            )
-                                                        }}
-                                                    />
-                                                </Link>
-
+                                                <div className="aboveImage">
+                                                    <Link to={"/product/" + item['id']}>
+                                                        <img className="imageH"
+                                                            src={item['img']}
+                                                            alt="bag"
+                                                            onClick={() => {
+                                                                window.scroll(
+                                                                    {
+                                                                        top: 0
+                                                                    }
+                                                                )
+                                                            }}
+                                                        />
+                                                    </Link>
+                                                </div>
                                                 <br />
-                                                <div className="priceLabel">
-                                                    <label>Name</label>
-                                                    <label>{item['name']}</label>
+                                                <div className="buttonsOfImage">
+                                                    <div className="priceLabel">
+                                                        <label>Name</label>
+                                                        <label>{item['name']}</label>
+                                                    </div>
+                                                    <div className="priceLabel">
+                                                        <label>Price</label>
+                                                        <label>{item['price']}$</label>
+                                                    </div>
+                                                    <button id="btnAddId" onClick={this.addtocart} className="btnAdd">Add to Cart</button>
                                                 </div>
-                                                <div className="priceLabel">
-                                                    <label>Price</label>
-                                                    <label>{item['price']}$</label>
-                                                </div>
-                                                <button id="btnAddId" onClick={this.addtocart} className="btnAdd">Add to Cart</button>
 
                                             </div>
                                         )

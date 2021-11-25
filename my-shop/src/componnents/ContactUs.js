@@ -25,6 +25,8 @@ const ContactUs = () => {
                 subscribed,
                 selected
             }
+         
+
 
             fetch(
                 '/api/contactUs',
@@ -35,6 +37,9 @@ const ContactUs = () => {
                     },
                     body: JSON.stringify(sendingObject)
                 })
+                alert('Successfully sent');
+
+
         }
     }
   
@@ -135,7 +140,6 @@ const ContactUs = () => {
                 </div>
 
                 <div class="form-item">
-                    {/* <label onClick={handleSend}>Bla bla bla</label> */}
                     <input
                         type="submit"
                         class="btn_send"

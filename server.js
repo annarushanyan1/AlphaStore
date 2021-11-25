@@ -232,7 +232,7 @@ app.post('/api/login', (req, res) => {
                 {
                     'isUser': check,
                     'userId': userdata["id"],
-                    'fullname': userdata['firstname']+" "+userdata['lastname'],
+                    'fullname': userdata['firstname'] + " " + userdata['lastname'],
                     'products': JSON.stringify(userdata['products']),
                     'token': token,
                     'productsCount': JSON.parse(userdata['products']).length
@@ -293,7 +293,7 @@ app.post('/api/addToCart', (req, res) => {
                 break
             }
         }
-    } 
+    }
 })
 
 
@@ -363,7 +363,7 @@ app.post(
 
         let userId = req.body['userId']
         let itemId = req.body['itemId']
-        console.log(387,userId,itemId)
+        console.log(387, userId, itemId)
 
         let key = -1;
 
@@ -478,16 +478,25 @@ app.post(
         let str;
         myPromise.then(
             (res) => {
+                console.log(482, res)
                 let list = res;
                 let newId = list[list.length - 1]["ID"] + 1;
+                console.log("newId", newId)
                 if (newId == undefined) {
                     newId = 1;
                 }
-                
+
                 str = `INSERT INTO contactUs VALUES(${newId},"${fullname}","${email}","${message}","${subscribed}","${selected}")`
                 workWithDb("insert", str);
-                writeCSV()
                 return "done"
+            }
+        ).then(
+            () => {
+                setTimeout(
+                    () => {
+                        writeCSV();
+                    }, 100
+                )
             }
         ).catch(
             (err) => {
@@ -634,12 +643,10 @@ function writeCSV() {
                     if (key == 'message') {
                         let mess = item[key] + "";
                         let newMess = mess.split(',').join(' |');
-
                         values.push(newMess);
 
                     } else {
                         values.push(item[key])
-
                     }
 
                 }
@@ -665,7 +672,7 @@ app.post(
     '/api/buyItem', (req, res) => {
         let itemId = req.body["itemId"];
         let userId = req.body["userId"];
-   
+
         let date = String(new Date());
         let db = new sqlite3.Database('./db/sql.db');
         let sql = `Select * from buyedList where userId = ${userId}`
@@ -678,14 +685,14 @@ app.post(
                 currentRows.push(row)
             });
 
-            if(currentRows.length == 0){
+            if (currentRows.length == 0) {
                 let arr = [];
                 arr.push(itemId);
 
                 arr = JSON.stringify(arr)
                 let sql = `Insert into buyedList values (${userId},"${arr}","${date}")`
                 db.run(sql)
-            }else{
+            } else {
                 let sql = `Select productIds from buyedList where userId = ${userId}`
                 let prd = "";
                 db.all(sql, [], (err, rows) => {
@@ -693,8 +700,8 @@ app.post(
                         throw err;
                     }
                     rows.forEach(
-                        (row)=>{
-                          prd = row;  
+                        (row) => {
+                            prd = row;
                         }
                     )
                     let arr = JSON.parse(prd.productIds);

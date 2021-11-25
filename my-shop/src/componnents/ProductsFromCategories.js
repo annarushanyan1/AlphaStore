@@ -31,7 +31,7 @@ const ProductsFromCategories = (props) => {
         let sendingData = {
             itemId, userId, token
         }
-        if (active == 0) {
+        if (Number(active) === 0) {
             let labelCount = document.getElementById("labelCount");
             labelCount.value++;
             localStorage.setItem("count",labelCount.value)
@@ -99,7 +99,8 @@ const ProductsFromCategories = (props) => {
                                 <div className="catg_product" key={item['id']} id={item['id']}>
                                     <Link to={"/product/" + item['id']}>
                                         <img className="catg_img" src={item['img']}
-                                        onClick={()=>{
+                                      alt="category"
+                                      onClick={()=>{
                                             window.scroll(
                                                 {
                                                     top:0
@@ -110,7 +111,6 @@ const ProductsFromCategories = (props) => {
                                         />
                                     </Link>
                                     <div className="priceLabel">
-                                        {/* <label>Name</label> */}
                                         <label>{item['name']}</label>
                                     </div>
                                     <div className="priceLabel">

@@ -90,6 +90,8 @@ const Dash = () => {
         let value = labelCount.innerHTML;
 
         let newCount = value - 1;
+        let quantity_input = document.getElementById("quantity_input"+ id);
+        quantity_input.value = newCount;
 
         if (Number(value) == 1) {
             elem.style.display = "none";
@@ -97,14 +99,10 @@ const Dash = () => {
 
         } else {
             labelCount.innerHTML = newCount;
-
         }
-        console.log(93, products.length)
 
         countAbove.value = products.length - 1;
         localStorage.setItem("count", products.length - 1)
-        console.log(106, products.length)
-        console.log(products);
 
         for (let i = 0; i < products.length; i++) {
             if (Number(products[i]["id"]) === Number(id)) {
@@ -112,14 +110,6 @@ const Dash = () => {
                 break;
             }
         }
-
-        let amount = 0;
-        products.map(
-            (item) => {
-                amount += Number(item["price"])
-            }
-        )
-        setTotalAmount(amount)
 
         let sendingData = {
             userId: localStorage.getItem('userId'),
@@ -335,7 +325,7 @@ const Dash = () => {
                                 <p className="text_total">Total Amount:</p>
                                 <label>{totalAmount}$</label><br />
                             </div>
-                            <button className="bottomButton" onClick={() => buyByCheckBox()}>Buyyy</button>
+                            <button className="bottomButton" onClick={() => buyByCheckBox()}>Buy</button>
 
                         </div>
 

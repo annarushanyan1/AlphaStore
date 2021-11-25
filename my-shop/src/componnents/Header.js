@@ -3,15 +3,13 @@ import React, { useState, useEffect } from "react"
 import '../styles/Header.css';
 import '../styles/NavBar.css';
 
-import {
-    Link,
-} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import Popup from 'reactjs-popup';
 
 import Logo from './../images/logo.png'
 
-
+import Cart from './../images/Cart.png'
 let ref_log_out = React.createRef();
 const PopupLogOut = () => {
     function logout() {
@@ -111,7 +109,7 @@ const Header = (props) => {
                         get == 0 ? (
                             <div className="general">
                                 <Link to="/account">
-                                    <img className="nav general" src="http://cdn.onlinewebfonts.com/svg/download_171149.png" alt="logoNav"
+                                    <img className="nav general" src={Cart} alt="logoNav"
                                         onClick={scrollToTop}
                                     />
                                 </Link>

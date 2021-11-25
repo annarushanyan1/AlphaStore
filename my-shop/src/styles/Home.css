@@ -31,6 +31,10 @@
     margin-bottom: 20px;
     position: relative;
 }
+.aboveImage{
+    height: 75%;
+    position: relative;
+}
 
 .productH:hover{
     box-shadow: 1px 5px 5px 5px #888888;
@@ -57,14 +61,24 @@ justify-content: space-around;
 flex-wrap: wrap;
 }
 .imageH{
-    width: 210px;
-    height: 270px;
+    width: 86%;
     display: flex;
     margin:0 auto;
     opacity: 1;
     cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
-
+.buttonsOfImage{
+position: absolute;
+bottom:10px;
+right: 0;
+left: 0;
+margin: 0 auto;
+}
 .btnAdd{
     float: right;
     display: block;
@@ -79,7 +93,8 @@ flex-wrap: wrap;
     font-family: Arial, Helvetica, sans-serif;
     transition: .2s;
     letter-spacing: 1px;
-    margin:0 8px;
+    margin-right: 23px
+
 ;
 }
 
@@ -136,7 +151,7 @@ flex-wrap: wrap;
 
 .popUpWindowItem{
     width: 250px;
-    height: 320px;
+    height: 340px;
     background-color: rgb(243, 243, 243);
     opacity: 0.8;
     position: absolute;
@@ -156,6 +171,10 @@ flex-wrap: wrap;
     font-size: 20px;
     text-align: center;
     font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding-bottom: 10px;
 }
 
 .searchFromAbove{

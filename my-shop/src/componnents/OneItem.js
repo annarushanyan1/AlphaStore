@@ -8,8 +8,6 @@ import Star from "./../images/star.png"
 
 const OneItem = (props) => {
     let [count, setCount] = useState(1);
-
-    let [shown, setShown] = useState(false);
     let products = JSON.parse(localStorage.getItem("shopProducts"));
     let id = props.match.params.id;
     console.log(id);
@@ -28,7 +26,6 @@ const OneItem = (props) => {
             }
         );
         window.history.back();
-        // window.scroll
     }
 
 
@@ -45,9 +42,13 @@ const OneItem = (props) => {
     )
     console.log(filterList)
     function addtocart(e) {
+
+        console.log(count)
         let active = localStorage.getItem('user');
+
         if (active == 1) {
-            setShown(true);
+            alert("You are not loged in")
+            return
         }
         let itemId = id;
         let userId = localStorage.getItem("userId");
@@ -57,35 +58,30 @@ const OneItem = (props) => {
         }
 
         let itemCount = count;
+        let countAbove = document.getElementById("labelCount");
         for (let i = 0; i < itemCount; i++) {
-            if (active == 0) {
-                let countAbove = document.getElementById("labelCount");
-                countAbove.value = Number(localStorage.getItem("count")) + 1;
+            countAbove.value = Number(localStorage.getItem("count")) + 1;
+            localStorage.setItem("count", countAbove.value);
+            setTimeout(
+                () => {
+                    fetch(
+                        '/api/addToCart',
+                        {
+                            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(sendingData) // body data type must match "Content-Type" header
+                        })
+                },100*i
+            )
 
-                localStorage.setItem("count", countAbove.value)
 
-                fetch(
-                    '/api/addToCart',
-                    {
-                        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(sendingData) // body data type must match "Content-Type" header
-                    })
-                    .then(
-                        res => res.json()
-                    )
-
-                // alert("Added")
-            }
         }
     }
     return (
         <div className="one-item_main">
-            {
-                shown ? <PopupError /> : null
-            }
+
             <p onClick={goBackToHome} className="back"> &nbsp;&nbsp; <img className="backImage" src="https://www.pinclipart.com/picdir/big/521-5215772_transparent-left-arrow-png-left-arrow-black-and.png" /></p>
             <br />
             <br />
@@ -136,7 +132,6 @@ const OneItem = (props) => {
                                             <label>Price</label>
                                             <label>{item['price']}$</label>
                                         </div>
-                                        {/* <button id="btnAddId" onClick={addtocart} className="btnAdd_from_under">Add to Cart</button> */}
 
                                     </div>
 
@@ -153,28 +148,3 @@ const OneItem = (props) => {
 
 export default withRouter(OneItem)
 
-
-const PopupError = () => {
-    let active = localStorage.getItem("user");
-    if (Number(active) === 1) {
-        return (
-            <Popup open={true} position="top left">
-                {
-                    close => (
-                        <div className="popUpWindow">
-
-                            <a className="close" onClick={close}>
-                                <label className="closingLabel">X</label>
-                            </a>
-
-                            <p className="popUpText">You are not logged in,  Please,&nbsp; <a href="http://localhost:3000/login" className="aHref3"> Log In </a></p>
-
-
-                        </div>
-                    )}
-            </Popup>
-        );
-    }
-    return null
-
-}
