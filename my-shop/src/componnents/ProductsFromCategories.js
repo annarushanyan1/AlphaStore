@@ -117,7 +117,7 @@ const ProductsFromCategories = (props) => {
                                         <label>Price</label>
                                         <label>{item['price']}$</label>
                                     </div>
-                                    <button id="btnAddId" onClick={addtocart} className="btnAdd">Add to Cart</button>
+                                    <button id="btnAddId" onClick={addtocart} className="btnAdd btnAddCat">Add to Cart</button>
 
                                 </div>
                             )

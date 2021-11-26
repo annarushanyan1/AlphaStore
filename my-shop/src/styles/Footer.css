@@ -1,6 +1,6 @@
 .mainFooter{
     display: flex;
-    height: 380px;
+    height:180px;
     background-color: rgb(233, 233, 233);
     justify-content: center;
 }
@@ -14,7 +14,9 @@
     padding: 10px 0;
 }
 
-
+.customer{
+    margin-top: 20px;
+}
 .mainFooter{
 padding-right: 50px;
 }
@@ -42,3 +44,6 @@ color: red;
 
 }
 
+.business_part{
+    margin-left: 60px;
+}

@@ -15,6 +15,7 @@ export default class Login extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+
     check() {
         if (this.state.username == "" || this.state.password == "") {
             alert("All the fields must be filled")
@@ -114,7 +115,7 @@ export default class Login extends Component {
                             label="Log In" className="LoginBtn" onClick={this.handleSubmit}
                         >
 
-                            <a className="aHref2">Log In</a>
+                            <a className="aHref2">Sign In</a>
 
 
                         </button>

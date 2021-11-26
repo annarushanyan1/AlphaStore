@@ -59,8 +59,23 @@ export default class App extends Component {
     }
     return false
   }
+
   render() {
+   
+    if(!localStorage.getItem("shopProducts")){
+      localStorage.setItem("shopProducts","[]")
+      localStorage.setItem("user",1)
+      setTimeout(
+        ()=>{
+              window.location.reload()
+        }
+      )
+    }
+
+
+
     let get = localStorage.getItem("user")
+
     if (Number(get) === 1) {
       localStorage.removeItem("products")
       localStorage.removeItem("firstname")

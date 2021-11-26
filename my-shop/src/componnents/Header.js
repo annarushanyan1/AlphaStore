@@ -97,13 +97,11 @@ const Header = (props) => {
             </Link>
             <p></p>
             <ul className="navbar">
-
                 <li className="general">
                     <Link to="/">
                         <img className="nav home general" src="https://image.flaticon.com/icons/png/512/1946/1946488.png" alt="logoNav" />
                     </Link>
                 </li>
-
                 <li className="general">
                     {
                         get == 0 ? (

@@ -76,7 +76,6 @@ const Dash = () => {
 
     const Delete = (id) => {
         console.log(id)
-
         let countAbove = document.getElementById("labelCount");
         let labelCount = document.getElementById("setCount_" + id);
         let elem = document.getElementById("product" + id);
@@ -84,9 +83,11 @@ const Dash = () => {
         if (products.length == 1) {
             setEmpty(true)
         }
-        console.log(countAbove)
 
-        console.log(labelCount)
+        console.log(countAbove);
+
+        console.log(labelCount);
+
         let value = labelCount.innerHTML;
 
         let newCount = value - 1;
@@ -222,7 +223,7 @@ const Dash = () => {
 
     }
 
-    const onChangeChexBox = (e) => {
+    const onChangeCheckBox = (e) => {
         let set = checkArray;
         let itemId = Number(e.target.value);
         if (e.target.checked) {
@@ -288,10 +289,10 @@ const Dash = () => {
                                 (item) => {
                                     return (
                                         <div className="product" key={key++} id={"product" + item["id"]}>
-                                            <input className="dash_checkbox" type="checkbox" value={item["id"]}
+                                            <input className="dash_checkbox" id={"dash_checkbox_"+item["id"]} type="checkbox" value={item["id"]}
                                                 onChange={
                                                     (e) => {
-                                                        onChangeChexBox(e)
+                                                        onChangeCheckBox(e)
                                                         SetTotalF(e)
                                                     }} />
                                             <Link to={"/product/" + item['id']}>
@@ -308,7 +309,9 @@ const Dash = () => {
                                             </div>
                                             <br />
                                             <div className="input-group" id={item["id"]}>
-                                                <input type="button" value="-"  readOnly className="button-minus" onClick={() => { Delete(item["id"]) }} />
+                                                <input type="button" value="-"  readOnly className="button-minus" onClick={(e) => {
+                                                     Delete(item["id"]);
+                                                     }} />
                                                 <input type="number" max="" min="1" readOnly value={GiveCount(item["id"])} className="quantity-field" id={"quantity_input"+item["id"]}/>
                                                 <input type="button" value="+" readOnly className="button-plus" onClick={(e) => {addtocart(e)}}/>
                                             </div>
@@ -317,6 +320,7 @@ const Dash = () => {
                                 }
                             )
                     }
+                    
                 </div>
                 {
                     products.length != 0 ? (

@@ -24,3 +24,8 @@
     box-shadow: 1px 5px 5px 5px #888888;
 
 }
+
+.btnAddCat{
+    display: flex;
+margin: 0 auto;
+}

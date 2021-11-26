@@ -8,8 +8,6 @@ padding-right: 100px;
     font-family: Arial, Helvetica, sans-serif;
 }
 .block{
-    /* border: 2px red dotted; */
-
     margin:0px 40%;
     padding-top: 150px;
     display: flex;
@@ -20,27 +18,36 @@ padding-right: 100px;
 }
 
 .btnRegister{
-    background-color: #e3eee7;
-    color: rgb(0, 0, 0);
+    background-color: rgb(247, 146, 146);
     font-size: 20px;
-    height: 40px;
-    width: 300px;
+    padding: 4px 10px;
+    border-radius: 5px;
+    height: 30px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
     font-family: Arial, Helvetica, sans-serif;
-    padding: 3px 10px;
+    color: white;
+    padding-top: 6px;
 }
 
 .btnRegister:active,.btnRegister:hover {
     font-size: 21px;
     border: 1px solid rgb(66, 66, 66);
-background-color: rgb(201, 246, 221);
+background-color: rgb(177, 177, 177);
 }
 
 .inputStyle{
-    width: 200px;
-    height: 30px;
+    width: 250px;
+    height: 37px;
     border: none;
     text-indent: 10px;
     font-size: 18px;
+    display: flex;
+    margin:0 auto;
+    border: 1px rgb(116, 116, 116) solid;
+    border-radius: 8px;
 }
 
 .inputStyle:focus {
@@ -73,4 +80,13 @@ height: 100px;
     height: 30px;
     display: flex;
     margin:0 auto;
+}
+
+.registration_block_part{
+    width: 400px;
+    background-color: rgb(255, 255, 255);
+    height: 360px;
+    border: 1px rgb(116, 116, 116) solid;
+    border-radius: 8px;
+    box-shadow: 1px 3px 3px 3px #818181;
 }

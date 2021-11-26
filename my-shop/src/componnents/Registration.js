@@ -46,7 +46,7 @@ const Registration = () => {
                                     window.location.reload()
                                 }, 3000
                             )
-                            window.open("login","_self");
+                            window.open("login", "_self");
                         } else {
                             alert("User with that username already exists")
                         }
@@ -60,63 +60,65 @@ const Registration = () => {
     }
 
     return (
-        <div className="registerBlock">
+        <div className="loginBlock">
 
             <div className="block">
-                <form>
-                    <p style={style}>Registration</p><br />
-                    <br />
-                    <input
-                        placeholder="Your Firstname"
-                        type="text"
-                        onChange={(e) => setFirstname(e.target.value)}
-                        className="inputStyle"
-                        value={firstname}
-                    />
-                    <br />
-                    <br />
-                    <input
-                        name="lastname"
-                        type="text"
-                        placeholder="Your Lastname"
-                        className="inputStyle"
-                        onChange={(e) => setLastname(e.target.value)}
-                        value={lastname}
+                <div className="registration_block_part">
+                    <form>
+                       <u> <p style={style}>Registration</p></u>
+                        <br />
+                        <br />
+                        <input
+                            placeholder="Your Firstname"
+                            type="text"
+                            onChange={(e) => setFirstname(e.target.value)}
+                            className="inputStyle"
+                            value={firstname}
+                        />
+                        <br />
 
-                    />
-                    <br />
-                    <br />
-                    <input
-                        name="username"
-                        type="text"
-                        placeholder="Your Username"
-                        onChange={(e) => setUsername(e.target.value)}
-                        className="inputStyle"
-                        value={username}
+                        <input
+                            name="lastname"
+                            type="text"
+                            placeholder="Your Lastname"
+                            className="inputStyle"
+                            onChange={(e) => setLastname(e.target.value)}
+                            value={lastname}
 
-                    />
-                    <br />
-                    <br />
-                    <input
-                        name="password"
-                        type="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Your Password"
-                        className="inputStyle"
-                        value={password}
+                        />
+                        <br />
 
-                    />
-                    <br />
-                    <br />
-                    <br />
+                        <input
+                            name="username"
+                            type="text"
+                            placeholder="Your Username"
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="inputStyle"
+                            value={username}
 
-                    <div className="registerbtn">
+                        />
+                        <br />
 
-                        <label className="btnRegister" onClick={handleRegister}>
-                            Register
-                        </label>
-                    </div>
-                </form>
+                        <input
+                            name="password"
+                            type="password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Your Password"
+                            className="inputStyle"
+                            value={password}
+
+                        />
+                        <br />
+
+
+                        <div className="registerbtn">
+
+                            <label className="btnRegister" onClick={handleRegister}>
+                                Sign Up
+                            </label>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     )
@@ -127,5 +129,6 @@ export default Registration
 
 const style = {
     textAlign: 'center',
-    fontSize: 25
+    fontSize: 25,
+    paddingTop:"10px"
 }
