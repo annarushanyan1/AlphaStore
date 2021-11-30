@@ -4,8 +4,6 @@ import {
 } from 'react-router-dom';
 
 function PrivateRoute({ children, isAuthenticated, ...rest }) {
-    console.log(isAuthenticated);
-    console.log(rest);
     
 
     if (rest["path"] === "/login" || rest["path"] === "/registration") {

@@ -1,11 +1,6 @@
+const { db } = require('./../server');
+
 exports.CheckUser = function (username, password, res) {
-    let sqlite3 = require('sqlite3').verbose();
-    let db = new sqlite3.Database('./db/sql.db', (err) => {
-        if (err) {
-            return console.error(err.message);
-        }
-        console.log('Connected to the in-memory SQlite database.');
-    });
     let sql = `Select * from users where username = "${username}" and password = "${password}"`
 
     let user = {};
@@ -24,10 +19,8 @@ exports.CheckUser = function (username, password, res) {
     });
     myPromise.then(
         (user) => {
-            console.log(100, user)
             if (Object.keys(user).length === 0) {
                 console.log("not user")
-
                 res.json(
                     {
                         'isUser': 2
@@ -46,5 +39,4 @@ exports.CheckUser = function (username, password, res) {
             )
         }
     )
-    db.close()
 }

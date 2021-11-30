@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 
 const PopupError = () => {
     let active = localStorage.getItem("user");
-    if (active == 1) {
+    if (Number(active) === 1) {
         return (
             <Popup open={true} position="top left">
                 {
@@ -43,7 +43,7 @@ const PopupItem = (props) => {
         let prd = JSON.parse(localStorage.getItem("shopProducts"));
         console.log(prd);
         for (let i = 0; i < prd.length; i++) {
-            if (prd[i]['id'] == props.id) {
+            if (Number(prd[i]['id']) === Number(props.id)) {
                 setImg(prd[i]['img'])
                 console.log(img)
 
@@ -54,8 +54,8 @@ const PopupItem = (props) => {
 
     }, []);
 
-    let active = localStorage.getItem("user");
-    if (active == 0) {
+    let active = Number(localStorage.getItem("user"));
+    if (active === 0) {
         return (
             <Popup open={true} position="">
                 {
@@ -166,7 +166,7 @@ export default class Home extends Component {
     }
     handleEnter(event) {
         console.log(this.state.inputText)
-        if (this.state.inputText == undefined || this.state.inputText == "") {
+        if (this.state.inputText === undefined || this.state.inputText === "") {
             this.setState({ noResult: false })
 
         }
@@ -192,7 +192,7 @@ export default class Home extends Component {
 
 
         console.log(this.query)
-        if (this.query == "") {
+        if (this.query === "") {
             this.setState({ noResult: false })
 
             this.shownItems = this.state.products;
@@ -255,7 +255,7 @@ export default class Home extends Component {
             }
         )
         let usingDate = Array.from(keys, ([name, value]) => (value));
-        if (this.shownItems === [] || this.shownItems == '') {
+        if (this.shownItems === [] || this.shownItems === '') {
             this.shownItems = this.state.products;
         }
         return (
@@ -264,7 +264,7 @@ export default class Home extends Component {
                 {this.state.shown2 ? <PopupItem id={this.state.id} /> : null}
                 <Menu />
                 <div className="logoA_div">
-                    <img className="logoA" src={logoA} />
+                    <img className="logoA" alt="logoA" src={logoA} />
                 </div>
                 <hr />
                 <div className="search searchFromAbove"

@@ -1,18 +1,10 @@
+const { db } = require('./../server')
+
 exports.GiveProductsById = function (id, res) {
-    let sqlite3 = require('sqlite3').verbose();
-
-    let db = new sqlite3.Database('./db/sql.db', (err) => {
-        if (err) {
-            return console.error(err.message);
-        }
-        console.log('Connected to the in-memory SQlite database.');
-    });
-
     let productsById = [];
 
     if (id) {
         let sql = `SELECT products FROM users where id = ${id}`;
-
         db.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
@@ -76,6 +68,5 @@ exports.GiveProductsById = function (id, res) {
             )
         }
         );
-        db.close();
     }
 }

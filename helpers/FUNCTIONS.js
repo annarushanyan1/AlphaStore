@@ -1,7 +1,6 @@
 let ShopProductsjs = require('./ShopProducts.js')
 
 exports.ShopProducts = function (res) {
-    console.log("ShopProducts")
     ShopProductsjs.ShopProducts(res)
 }
 //________________________________________________________

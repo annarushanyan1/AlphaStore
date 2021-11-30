@@ -27,4 +27,10 @@ ID,fullName,email,message,subscribed,selected
 26,Anna Ar,Arr4@gmail.com,heey,1,Web search
 27,Anna Ar,Arr5@gmail.com,brat,1,Web search
 28,Anna Ar,Arr6@gmail.com,brat2,0,Web search
-29,Anna Ar,Arr7@gmail.com,Hey,true,Print Ad
+29,Anna Ar,Arr7@gmail.com,Hey,1,Print Ad
+30,Harut Arstamyan,harut@gmail.com,Hello,1,Web search
+31,Harut Arstamyan,harut@gmail.com,Heyo,1,From a friend
+32,Harut Arstamyan,harut@gmail.com,Heyo,1,Print Ad
+33,Harut Arstamyan,harut@gmail.com,Heyo,1,Web search
+34,Harut Arstamyan,harut@gmail.com,Hello,1,Print Ad
+35,Harut Arstamyan,harut@gmail.com,hello,true,Print Ad

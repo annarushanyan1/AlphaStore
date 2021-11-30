@@ -6,6 +6,10 @@ app.use(express.json({ limit: '1mb' }));
 
 app.listen(5000);
 
+let sqlite3 = require('sqlite3')
+let db = new sqlite3.Database('./helpers/db/sql.db')
+exports.db = db;
+
 let sqlfunctions = require('./helpers/FUNCTIONS.js')
 
 app.get('/api/shopProducts', function (req, res) {
@@ -57,3 +61,24 @@ app.post(
         sqlfunctions.BuyItem(req)
     }
 )
+
+
+// let sqlite3 = require('sqlite3')
+// let db = new sqlite3.Database('./helpers/db/sql.db')
+// let sql = "Select * from users"
+// let arr = []
+// db.all(
+//     sql,[],(err,rows)=>{
+//         if(err){
+//             return err.message
+//         }
+//         rows.forEach(
+//             (row)=>{
+//                     arr.push(row)
+//             }
+//         )
+//         console.log(arr)
+    
+//     }
+
+// )

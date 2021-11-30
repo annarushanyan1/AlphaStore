@@ -1,4 +1,6 @@
-let commonFunctions = require('./common.js')
+const { db } = require('./../server');
+// const commonFunctions = require('./common.js')
+
 exports.ContactUs = function (req) {
     let fullname = req.body["name"];
     let email = req.body["email"];
@@ -10,13 +12,6 @@ exports.ContactUs = function (req) {
     let contactList = [];
     const myPromise = new Promise((resolve, reject) => {
 
-        let sqlite3 = require('sqlite3').verbose();
-        let db = new sqlite3.Database('./db/sql.db', (err) => {
-            if (err) {
-                return console.error(err.message);
-            }
-            console.log('Connected to the in-memory SQlite database.');
-        });
         let sql = "SELECT * FROM contactUs";
         db.all(sql, [], (err, rows) => {
             if (err) {
@@ -31,21 +26,13 @@ exports.ContactUs = function (req) {
             }
             resolve(contactList);
         });
-        db.close()
 
     });
 
     myPromise.then(
-        (list) => {//der add ytac chi
-            let sqlite3 = require('sqlite3').verbose();
-            let db = new sqlite3.Database('./db/sql.db', (err) => {
-                if (err) {
-                    return console.error(err.message);
-                }
-                console.log('Connected to the in-memory SQlite database.');
-            });
-            let newId = list[list.length - 1]["ID"] + 1;
+        (list) => {
 
+            let newId = list[list.length - 1]["ID"] + 1;
 
             if (newId == undefined) {
                 newId = 1;
@@ -72,8 +59,39 @@ exports.ContactUs = function (req) {
         }
     )
     myPromise.then(
-        (list2) => {
-            commonFunctions.writeCSV(list2)
+        (data) => {
+            //writing data in csv file
+            const fs = require('fs')
+            let str = '';
+            let header = Object.keys(data[0]);
+
+            //checkin if there is comma in the message, because csv file cant understand comma, it is understandin like new calomn
+
+            data.map(
+                item => {
+                    let values = [];
+                    for (const key in item) {
+                        if (key == 'message') {
+                            let mess = item[key] + "";
+                            let newMess = mess.split(',').join(' |');
+                            values.push(newMess);
+                        } else {
+                            values.push(item[key])
+                        }
+                    }
+                    str += values + '\n'
+                }
+            );
+            str = header + '\n' + str;
+            console.log(833,str)
+            fs.writeFile('./messeges.csv', str, err => {
+                
+                if (err) {
+                    console.error(err)
+                    return
+                }
+                console.log("writen")
+            })
         }
     )
 }

@@ -14,7 +14,6 @@ const Dash = () => {
     const [loading, setLoading] = useState(false)
     const [isEmpty, setEmpty] = useState(false);
 
-    const [inputCount, setInputCount] = useState([]);
     const fetchData = async () => {
         let userId = localStorage.getItem("userId");
         if (userId === undefined || userId === null) {
@@ -36,13 +35,12 @@ const Dash = () => {
             const json = await response.json();
             let prd = JSON.parse(json["products"]);
             let filteredList = json["filteredList"];
-            console.log(39, prd)
+
             if (prd.length === 0) {
                 setEmpty(true)
             } else {
                 setEmpty(false)
             }
-            console.log(totalAmount)
             setProducts(prd);
             setFitered(filteredList);
 
@@ -78,16 +76,15 @@ const Dash = () => {
     const Delete = (id) => {
         let countAbove = document.getElementById("labelCount");
         let labelCount = document.getElementById("setCount_" + id);
-        console.log(labelCount)
+
         let elem = document.getElementById("product" + id);
 
-        if (products.length == 1) {
+        if (products.length === 1) {
             setEmpty(true)
         }
 
-        console.log(countAbove);
 
-        console.log(labelCount);
+
 
         let value = labelCount.innerHTML;
 
@@ -188,18 +185,15 @@ const Dash = () => {
             return
         }
   
-
-        console.log(filtered)
         for (let i = 0; i < arr.length; i++) {
             for (let j = 0; j < filtered.length; j++) {
-                if (filtered[j]["id"] == arr[i]) {
+                if (Number(filtered[j]["id"]) === Number(arr[i])) {
                     arr[i] = [];
                     arr[i].push(filtered[j]["id"], filtered[j]["count"])
                 }
             }
         }
 
-        console.log(arr)//2d array
         for (let i = 0; i < arr.length; i++) {
             for (let j = 0; j < Number(arr[i][1]); j++) {
                 setTimeout(
@@ -207,7 +201,6 @@ const Dash = () => {
                 const myPromise = new Promise((resolve, reject) => {
 
                             Delete(Number(arr[i][0]))
-                            // console.log(arr[i][0])
                 })
                 myPromise.then(
                     (res) => {
@@ -239,7 +232,6 @@ const Dash = () => {
             set.delete(itemId);
         }
         setCheckArray(set);
-        console.log(set);
     }
 
     const SetTotalF = (e) => {
@@ -248,12 +240,12 @@ const Dash = () => {
         for (let i = 0; i < arrayfromSet.length; i++) {//id
             let itm = filtered.find(
                 (item) => {
-                    if (item["id"] == arrayfromSet[i]) {
+                    if (Number(item["id"]) === Number(arrayfromSet[i])) {
                         return item
                     }
                 }
             )
-            console.log(itm)
+
             let price = itm['price'];
             for (let j = 0; j < Number(GiveCount(arrayfromSet[i])); j++) {//count
                 amount += price;
@@ -265,10 +257,10 @@ const Dash = () => {
     }
 
     let key = 0;
+
     let status = Number(localStorage.getItem("user"));
     return (
         status === 0 ? (
-
             <div className="Dash_main">
                 {
                     loading ? (<div>
@@ -278,14 +270,14 @@ const Dash = () => {
                 }
                 <p className="clientName">Client: {localStorage.getItem("fullname")}</p>
                 {
-                    isEmpty == false ? (
+                    isEmpty === false ? (
                         <p className="clientName">Shopping Cart</p>
                     ) : null
                 }
 
                 <div className="prdList">
                     {
-                        isEmpty == true ? (
+                        isEmpty === true ? (
                             <div>
                                 <img className="emptytext_image" src={EmptyCart} alt="emptyCartImgae" />
                                 <p className="emptytext">Your shopping Cart is empty</p>
@@ -330,7 +322,7 @@ const Dash = () => {
 
                 </div>
                 {
-                    products.length != 0 ? (
+                    products.length !== 0 ? (
                         <div>
                             <div className="totalAmount_block">
                                 <p className="text_total">Total Amount:</p>

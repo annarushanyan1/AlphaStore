@@ -8,25 +8,10 @@ const AboutUs = () => {
             top: 0
         });
     }
-    function fetching(){
-
-    
-    fetch(
-        '/api/justarushanian'
-    )
-        .then(
-            res => res.json()
-        )
-        .then(
-            data => {
-                console.log(data)
-            }
-        )
-    }
     return (
         <div className="about_us_main_block">
             <p onClick={goBackToHome} className="back"> &nbsp;&nbsp; <img className="backImage" src="https://www.pinclipart.com/picdir/big/521-5215772_transparent-left-arrow-png-left-arrow-black-and.png" alt="backImage" /></p>
-          <button onClick={fetching}>fetchingggggggggg</button>
+
             <div className="about_us_inner_block">
                 <br /><br />
                 <h2 className="about_us_title">About Us</h2>

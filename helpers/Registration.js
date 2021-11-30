@@ -1,3 +1,5 @@
+const { db } = require('./../server')
+
 exports.Registration = function (req, res) {
     let newUser = req.body;
 
@@ -9,14 +11,6 @@ exports.Registration = function (req, res) {
     const myPromise = new Promise((resolve, reject) => {
         let sql = `Select * from users where username = "${username}"`
         let existedUser = false;
-
-        let sqlite3 = require('sqlite3').verbose();
-        let db = new sqlite3.Database('./db/sql.db', (err) => {
-            if (err) {
-                return console.error(err.message);
-            }
-            console.log('Connected to the in-memory SQlite database.');
-        });
 
         db.all(sql, [], (err, rows) => {
             if (err) {
@@ -43,13 +37,6 @@ exports.Registration = function (req, res) {
 
     myPromise.then(
         (existed) => {
-            let sqlite3 = require('sqlite3').verbose();
-            let db = new sqlite3.Database('./db/sql.db', (err) => {
-                if (err) {
-                    return console.error(err.message);
-                }
-                console.log('Connected to the in-memory SQlite database.');
-            });
 
             if (!existed) {
                 let sql = `

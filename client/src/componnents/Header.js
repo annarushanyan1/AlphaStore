@@ -18,7 +18,6 @@ const PopupLogOut = () => {
         localStorage.removeItem("products");
         localStorage.removeItem("fullname");
         localStorage.removeItem("token");
-
         localStorage.removeItem("userId");
         localStorage.setItem("user", 1);
         window.open("/", "_self")
@@ -50,7 +49,6 @@ const PopupLogOut = () => {
 }
 
 const Header = (props) => {
-    const [count, setCount] = useState(0);
     const [logOut, setLogOut] = useState(false)
 
     let myRef = React.createRef();
@@ -67,20 +65,11 @@ const Header = (props) => {
         window.scroll({
             top: 0
         });
+window.open("/account","_self")
+
 
     }
-    let get = localStorage.getItem("user");
-    if (get === 1) {
-        setCount(0)
-
-    }
-    else {
-
-        if (localStorage.getItem("products") !== '' || localStorage.getItem("products") !== []) {
-            let list = JSON.parse(localStorage.getItem("products"));
-
-        }
-    }
+    let get = Number(localStorage.getItem("user"));
 
     function openLogOut() {
         setLogOut(true);
@@ -104,7 +93,7 @@ const Header = (props) => {
                 </li>
                 <li className="general">
                     {
-                        get == 0 ? (
+                        get === 0 ? (
                             <div className="general">
                                 <Link to="/account">
                                     <img className="nav general" src={Cart} alt="logoNav"
@@ -118,7 +107,7 @@ const Header = (props) => {
                 </li>
                 <li className="general">
                     {
-                        get == 1 ? (
+                        get === 1 ? (
                             <Link to="/login">
                                 <img className="nav login general" src="https://image.flaticon.com/icons/png/512/1784/1784590.png" alt="logoNav" />
                             </Link>) : null
@@ -127,13 +116,13 @@ const Header = (props) => {
                 </li>
                 <li className="general">
                     {
-                        get == 0 ? (
+                        get === 0 ? (
                             <button
                                 // label="Submit" onClick={logout}
                                 label="Submit" onClick={openLogOut}
                                 className="buttonLogOut"
                             >
-                                <img className="log_out_img general" src="https://www.nicepng.com/png/full/271-2715115_exit-logout-comments-logout-icon-png-transparent.png" />
+                                <img className="log_out_img general" alt="log out" src="https://www.nicepng.com/png/full/271-2715115_exit-logout-comments-logout-icon-png-transparent.png" />
                             </button>) : null
                     }
 

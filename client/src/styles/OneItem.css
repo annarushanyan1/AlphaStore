@@ -172,6 +172,7 @@ height: 200px;
 
     .recommend_main{
         justify-content: center;
+        
     }
   }
 
@@ -236,6 +237,7 @@ background-color: #e2ebe0;
     flex-wrap: wrap;
     flex-direction: row;
     margin: 0 auto;
+    justify-content: space-around;
 }
 
 
