@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./../styles/Registration.css"
+import "../styles/Registration.css"
 
 
 const Registration = () => {
@@ -8,16 +8,12 @@ const Registration = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     function handleRegister() {
-        var CryptoJS = require("crypto-js");
-        var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(password), 'my-secret-key@123').toString();
 
-        console.log(ciphertext)
         if (firstname !== "" && lastname !== "" && username !== "" && password !== "") {
             let sendingData = {
                 firstname, lastname, username,
-                "password": ciphertext
+               password
             }
-
             fetch(
                 '/api/registration',
                 {

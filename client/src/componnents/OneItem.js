@@ -1,10 +1,10 @@
 import React, { useState } from "react"
-import './../styles/OneItem.css'
+import '../styles/OneItem.css'
 import Popup from 'reactjs-popup';
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
-import Star from "./../images/star.png"
+import Star from "../images/star.png"
 
 const OneItem = (props) => {
     let [count, setCount] = useState(1);

@@ -3,9 +3,9 @@ import React, { Component, useEffect, useState } from "react"
 
 import '../styles/Home.css';
 import '../styles/Products.css'
-import logoA from './../images/logoA.png'
+import logoA from '../images/logoA.png'
 import Popup from 'reactjs-popup';
-import NoResultImage from './../images/noResult.gif'
+import NoResultImage from '../images/noResult.gif'
 
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import Menu from "./Menu";

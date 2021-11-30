@@ -1,5 +1,5 @@
 import React from "react";
-import ForbiddenImg from "./../images/forbidden.jpg"
+import ForbiddenImg from "../images/forbidden.jpg"
 
 const Forbidden = () => {
     return(

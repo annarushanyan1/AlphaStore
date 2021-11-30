@@ -7,9 +7,9 @@ import {Link} from 'react-router-dom';
 
 import Popup from 'reactjs-popup';
 
-import Logo from './../images/logo.png'
+import Logo from '../images/logo.png'
 
-import Cart from './../images/Cart.png'
+import Cart from '../images/Cart.png'
 let ref_log_out = React.createRef();
 const PopupLogOut = () => {
     function logout() {

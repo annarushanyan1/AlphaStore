@@ -1,18 +1,34 @@
 import React from "react";
-import './../styles/AboutUs.css'
+import '../styles/AboutUs.css'
 
 const AboutUs = () => {
-    function goBackToHome(){
+    function goBackToHome() {
         window.history.back();
         window.scroll({
             top: 0
-          });
-    } 
+        });
+    }
+    function fetching(){
+
+    
+    fetch(
+        '/api/justarushanian'
+    )
+        .then(
+            res => res.json()
+        )
+        .then(
+            data => {
+                console.log(data)
+            }
+        )
+    }
     return (
         <div className="about_us_main_block">
-            <p onClick={goBackToHome} className="back"> &nbsp;&nbsp; <img className="backImage" src="https://www.pinclipart.com/picdir/big/521-5215772_transparent-left-arrow-png-left-arrow-black-and.png" alt="backImage"/></p>
+            <p onClick={goBackToHome} className="back"> &nbsp;&nbsp; <img className="backImage" src="https://www.pinclipart.com/picdir/big/521-5215772_transparent-left-arrow-png-left-arrow-black-and.png" alt="backImage" /></p>
+          <button onClick={fetching}>fetchingggggggggg</button>
             <div className="about_us_inner_block">
-            <br/><br/>
+                <br /><br />
                 <h2 className="about_us_title">About Us</h2>
                 <p className="text_about_us">
                     <b>AlfaStore</b> restores ancient Armenian cultural values, while creating new ones. We aim to spread the word about the rich Armenian culture to the Armenian youth and to people around the world in general. Founded by Sirusho, she pays detailed attention to every piece produced, from designing her own samples to giving a modern touch and breath to the ornaments used centuries ago. Conducting a lot of research and working with the best handicraftsmen of Armenia, we  try to help Armenians to adhere to their roots and meanwhile be trendy and original.

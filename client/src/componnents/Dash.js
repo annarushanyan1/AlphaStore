@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import './../styles/Dash.css'
-import './../styles/Dashboard.css'
-import EmptyCart from './../images/emptyCart.png'
-import NoUserImage from './../images/NoUser.png'
+import '../styles/Dash.css'
+import '../styles/Dashboard.css'
+import EmptyCart from '../images/emptyCart.png'
+import NoUserImage from '../images/NoUser.png'
 import { Link } from "react-router-dom";
-import LoadingImage from './../images/loading-buffer.gif'
+import LoadingImage from '../images/loading-buffer.gif'
 
 const Dash = () => {
     const [products, setProducts] = useState([]);
@@ -12,8 +12,9 @@ const Dash = () => {
     const [totalAmount, setTotalAmount] = useState(0);
     const [checkArray, setCheckArray] = useState(new Set());
     const [loading, setLoading] = useState(false)
-
     const [isEmpty, setEmpty] = useState(false);
+
+    const [inputCount, setInputCount] = useState([]);
     const fetchData = async () => {
         let userId = localStorage.getItem("userId");
         if (userId === undefined || userId === null) {
@@ -75,9 +76,9 @@ const Dash = () => {
     }
 
     const Delete = (id) => {
-        console.log(id)
         let countAbove = document.getElementById("labelCount");
         let labelCount = document.getElementById("setCount_" + id);
+        console.log(labelCount)
         let elem = document.getElementById("product" + id);
 
         if (products.length == 1) {
@@ -90,37 +91,35 @@ const Dash = () => {
 
         let value = labelCount.innerHTML;
 
-        let newCount = value - 1;
-        let quantity_input = document.getElementById("quantity_input"+ id);
-        quantity_input.value = newCount;
+        let newCount = Number(value) - 1;
 
-        if (Number(value) == 1) {
+        if (Number(value) === 1) {
             elem.style.display = "none";
             localStorage.setItem("count", products.length - 1);
 
         } else {
+            let quantity_input = document.getElementById("quantity_input" + id);
             labelCount.innerHTML = newCount;
+            quantity_input.value = newCount;
         }
 
         countAbove.value = products.length - 1;
         localStorage.setItem("count", products.length - 1)
 
-        for (let i = 0; i < products.length; i++) {
-            if (Number(products[i]["id"]) === Number(id)) {
-                products.splice(i, 1);
+        let prd = products;
+        for (let i = 0; i < prd.length; i++) {
+            if (Number(prd[i]["id"]) === Number(id)) {
+                prd.splice(i, 1);
                 break;
             }
         }
-
+        setProducts(prd)
         let sendingData = {
             userId: localStorage.getItem('userId'),
             token: localStorage.getItem('token'),
             products: JSON.stringify(products)
         }
-        fetchUpdate(sendingData)
-    }
-
-    const fetchUpdate = (data) => {
+    
         fetch(
             '/api/update',
             {
@@ -128,19 +127,18 @@ const Dash = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data) // body data type must match "Content-Type" header
+                body: JSON.stringify(sendingData) // body data type must match "Content-Type" header
             }
         )
     }
 
 
     const fetchBuy = async (itemId) => {
-
         let userId = localStorage.getItem("userId");
         let sendingData = {
             userId, itemId
         }
-        const response = await fetch(
+        fetch(
             '/api/buyItem',
             {
                 method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -150,7 +148,6 @@ const Dash = () => {
                 body: JSON.stringify(sendingData) // body data type must match "Content-Type" header
             }
         )
-        const json = await response.json()
     }
     const addtocart = (e) => {
 
@@ -164,8 +161,11 @@ const Dash = () => {
         let labelCount = document.getElementById("labelCount");
         let newCount = Number(labelCount.value) + 1;
         let quantityApart = document.getElementById("setCount_" + itemId);
-        let quantity_input = document.getElementById("quantity_input"+ itemId);
-        quantityApart.innerHTML = Number(quantityApart.innerHTML)+1;
+
+        let quantity_input = document.getElementById("quantity_input" + itemId);
+
+
+        quantityApart.innerHTML = Number(quantityApart.innerHTML) + 1;
         quantity_input.value = quantityApart.innerHTML;
         labelCount.value = newCount;
         localStorage.setItem("count", newCount);
@@ -181,14 +181,13 @@ const Dash = () => {
             })
     }
     const buyByCheckBox = () => {
-
-
+         setLoading(true);
         let arr = Array.from(checkArray);
-        if(arr.length === 0){
+        if (arr.length === 0) {
             alert("Nothing is selected");
             return
         }
-        setLoading(true);
+  
 
         console.log(filtered)
         for (let i = 0; i < arr.length; i++) {
@@ -203,22 +202,30 @@ const Dash = () => {
         console.log(arr)//2d array
         for (let i = 0; i < arr.length; i++) {
             for (let j = 0; j < Number(arr[i][1]); j++) {
-
                 setTimeout(
-                    () => {
-                         Delete(Number(arr[i][0]))
-                        console.log(arr[i][0]);
+                    ()=>{
+                const myPromise = new Promise((resolve, reject) => {
+
+                            Delete(Number(arr[i][0]))
+                            // console.log(arr[i][0])
+                })
+                myPromise.then(
+                    (res) => {
                         fetchBuy(Number(arr[i][0]));
-                       
-                    }, 1000 * j
+                        
+                    }
                 )
+            },i*100
+            )
+
             }
         }
         setTimeout(
             () => {
+                setLoading(false);
                 window.open('/buy', '_self');
+            },1000
 
-            }, arr.length*2*1000
         )
 
     }
@@ -240,20 +247,20 @@ const Dash = () => {
         let amount = 0;
         for (let i = 0; i < arrayfromSet.length; i++) {//id
             let itm = filtered.find(
-                    (item)=>{
-                        if(  item["id"] == arrayfromSet[i]){
-                            return item
-                        }
+                (item) => {
+                    if (item["id"] == arrayfromSet[i]) {
+                        return item
                     }
+                }
             )
             console.log(itm)
             let price = itm['price'];
             for (let j = 0; j < Number(GiveCount(arrayfromSet[i])); j++) {//count
-                amount+=price;
-                
+                amount += price;
+
             }
         }
-    setTotalAmount(amount)
+        setTotalAmount(amount)
 
     }
 
@@ -270,12 +277,12 @@ const Dash = () => {
                     ) : null
                 }
                 <p className="clientName">Client: {localStorage.getItem("fullname")}</p>
-               {
-                   isEmpty == false ? (
-                         <p className="clientName">Shopping Cart</p> 
-                   ):null
-               }
-             
+                {
+                    isEmpty == false ? (
+                        <p className="clientName">Shopping Cart</p>
+                    ) : null
+                }
+
                 <div className="prdList">
                     {
                         isEmpty == true ? (
@@ -289,7 +296,7 @@ const Dash = () => {
                                 (item) => {
                                     return (
                                         <div className="product" key={key++} id={"product" + item["id"]}>
-                                            <input className="dash_checkbox" id={"dash_checkbox_"+item["id"]} type="checkbox" value={item["id"]}
+                                            <input className="dash_checkbox" id={"dash_checkbox_" + item["id"]} type="checkbox" value={item["id"]}
                                                 onChange={
                                                     (e) => {
                                                         onChangeCheckBox(e)
@@ -309,18 +316,18 @@ const Dash = () => {
                                             </div>
                                             <br />
                                             <div className="input-group" id={item["id"]}>
-                                                <input type="button" value="-"  readOnly className="button-minus" onClick={(e) => {
-                                                     Delete(item["id"]);
-                                                     }} />
-                                                <input type="number" max="" min="1" readOnly value={GiveCount(item["id"])} className="quantity-field" id={"quantity_input"+item["id"]}/>
-                                                <input type="button" value="+" readOnly className="button-plus" onClick={(e) => {addtocart(e)}}/>
+                                                <input type="button" value="-" readOnly className="button-minus" onClick={(e) => {
+                                                    Delete(item["id"]);
+                                                }} />
+                                                <input type="number" max="" min="1" readOnly value={GiveCount(item["id"])} className="quantity-field" id={"quantity_input" + item["id"]} />
+                                                <input type="button" value="+" readOnly className="button-plus" onClick={(e) => { addtocart(e) }} />
                                             </div>
                                         </div>
                                     )
                                 }
                             )
                     }
-                    
+
                 </div>
                 {
                     products.length != 0 ? (

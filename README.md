@@ -5,7 +5,7 @@ and  buy items. Also you can write a message to administrator.
 
 # SetUp
 
-At first open terminal and run this commands to install motules
+At first open terminal and run this commands to install modules
 
 ### `npm install` OR `npm i`
 

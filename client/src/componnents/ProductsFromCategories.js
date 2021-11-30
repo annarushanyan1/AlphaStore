@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { withRouter } from "react-router";
-import './../styles/ProductsFromCategories.css'
+import '../styles/ProductsFromCategories.css'
 import Menu from "./Menu";
 import { Link } from "react-router-dom";
 
@@ -58,6 +58,7 @@ const ProductsFromCategories = (props) => {
 
     // Run! Like go get some data from an API.
     function fetching() {
+        console.log(61,name)
         fetch(
             '/api/getProductsByCategory', {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.

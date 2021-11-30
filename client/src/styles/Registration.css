@@ -34,7 +34,8 @@ padding-right: 100px;
 
 .btnRegister:active,.btnRegister:hover {
     font-size: 21px;
-    border: 1px solid rgb(66, 66, 66);
+    /* border: 1px solid rgb(66, 66, 66); */
+    cursor: pointer;
 background-color: rgb(177, 177, 177);
 }
 
