@@ -1,5 +1,4 @@
 const { db } = require('./../server');
-// const commonFunctions = require('./common.js')
 
 exports.ContactUs = function (req) {
     let fullname = req.body["name"];
@@ -83,14 +82,12 @@ exports.ContactUs = function (req) {
                 }
             );
             str = header + '\n' + str;
-            console.log(833,str)
             fs.writeFile('./messeges.csv', str, err => {
                 
                 if (err) {
                     console.error(err)
                     return
                 }
-                console.log("writen")
             })
         }
     )

@@ -4,8 +4,6 @@ import '../styles/ProductsFromCategories.css'
 import Menu from "./Menu";
 import { Link } from "react-router-dom";
 
-
-
 const ProductsFromCategories = (props) => {
     let [products, setPorducts] = useState([])
     let name = props.match.params.name;
@@ -43,10 +41,9 @@ const ProductsFromCategories = (props) => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(sendingData) // body data type must match "Content-Type" header
+                    body: JSON.stringify(sendingData)
                 })
                 
-            // alert("Added")
         }
     }
     function goBackToHome() {
@@ -55,10 +52,7 @@ const ProductsFromCategories = (props) => {
             top: 0
         });
     }
-
-    // Run! Like go get some data from an API.
     function fetching() {
-        console.log(61,name)
         fetch(
             '/api/getProductsByCategory', {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -75,14 +69,10 @@ const ProductsFromCategories = (props) => {
                 data => {
                     let prd = JSON.parse(data['products']);
                     setPorducts(prd)
-                    console.log(prd)
+
                 }
             )
     }
-    // fetching()
-    console.log(name)
-    // fetching()
-    console.log(products)
     return (
         <div className='cat'>
             <Menu />

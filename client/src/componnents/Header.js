@@ -57,7 +57,6 @@ const Header = (props) => {
         if (Number(localStorage.getItem("user")) === 0) {
             let prd = JSON.parse(localStorage.getItem("count"));
             myRef.current.value = prd;
-            console.log(myRef)
         }
     });
 

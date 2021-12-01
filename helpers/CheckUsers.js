@@ -1,5 +1,4 @@
-const { db } = require('./../server');
-
+const { db } = require('../server');
 exports.CheckUser = function (username, password, res) {
     let sql = `Select * from users where username = "${username}" and password = "${password}"`
 

@@ -13,10 +13,6 @@ const Menu = () => {
 
         elem.display = 'none';
     }
-    // function Session(){
-    //     sessionStorage.setItem("name",'Anna')
-    // }
-    // Session();
 
     return (
         <div className="menu">

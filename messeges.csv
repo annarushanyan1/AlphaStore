@@ -33,4 +33,5 @@ ID,fullName,email,message,subscribed,selected
 32,Harut Arstamyan,harut@gmail.com,Heyo,1,Print Ad
 33,Harut Arstamyan,harut@gmail.com,Heyo,1,Web search
 34,Harut Arstamyan,harut@gmail.com,Hello,1,Print Ad
-35,Harut Arstamyan,harut@gmail.com,hello,true,Print Ad
+35,Harut Arstamyan,harut@gmail.com,hello,1,Print Ad
+36,Test Testaryan,test@gmail.com,Hello,true,Web search

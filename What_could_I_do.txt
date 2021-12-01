@@ -1,0 +1,21 @@
+What could I do but didn't do because of the short time.
+
+***** Creating admin
+
+     Admin who would be able to see some graffics, users list,woulb be able to answer to users' questions.
+
+***** Creating more columns for the table products(SQL)
+     
+     For exalmple, name, brand, description, size, colors, etc..
+
+***** VALIDATION
+
+     Validation for registration
+
+***** Buy List
+
+     When the user selects items from cart to buy after buying the information is going to DB.
+     So I could make some place in the client side where user could see the products which he/she has bought
+
+***** night and light mode
+     One Button in the header of the application which is change mode, from night and light and opposite.

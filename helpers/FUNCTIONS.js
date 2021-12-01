@@ -12,10 +12,10 @@ exports.ProductsByCategory = function (name, res) {
 }
 //________________________________________________________
 
-let CheckUserkjs = require('./CheckUserk.js') 
+let CheckUsersjs = require('./CheckUsers.js') 
 
 exports.CheckUser = function (username, password, res) {
-    CheckUserkjs.CheckUser(username, password, res)
+    CheckUsersjs.CheckUser(username, password, res)
 }
 //________________________________________________________
 

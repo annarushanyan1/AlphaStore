@@ -41,11 +41,9 @@ const PopupItem = (props) => {
     let [img, setImg] = useState("");
     useEffect(() => {
         let prd = JSON.parse(localStorage.getItem("shopProducts"));
-        console.log(prd);
         for (let i = 0; i < prd.length; i++) {
             if (Number(prd[i]['id']) === Number(props.id)) {
                 setImg(prd[i]['img'])
-                console.log(img)
 
                 break
             }
@@ -119,9 +117,6 @@ export default class Home extends Component {
 
         this.query = string;
         this.setState({ inputText: string });
-
-
-        console.log(string, results)
     }
     handleOnSelect = (item) => {
         this.shown = false;
@@ -144,34 +139,28 @@ export default class Home extends Component {
         } else {
             this.state.allProducts.map(
                 item => {
-                    if (item['name'] === name) {
+                    if (item['name'] == name) {
                         this.shownItems.push(item)
                     }
                 }
             )
         }
-        console.log(158, this.shownItems[0])
         if (this.shownItems[0] === undefined) {
-            console.log(19, this.state.noResult)
             this.setState({ noResult: true })
         }
 
         this.setState({ inputText: "" });
-        console.log(this.state.inputText);
 
         setTimeout(() => {
             this.forceUpdate()
         }, 500);
-        console.log(item)
     }
     handleEnter(event) {
-        console.log(this.state.inputText)
         if (this.state.inputText === undefined || this.state.inputText === "") {
             this.setState({ noResult: false })
 
         }
         if (event.key === 'Enter') {
-            console.log('enter');
             let obj = {
                 name: this.state.inputText
             }
@@ -190,9 +179,7 @@ export default class Home extends Component {
 
         }
 
-
-        console.log(this.query)
-        if (this.query === "") {
+        if (this.query == "") {
             this.setState({ noResult: false })
 
             this.shownItems = this.state.products;
@@ -220,7 +207,7 @@ export default class Home extends Component {
         let sendingData = {
             itemId, userId, token
         }
-        if (Number(active) === 0) {
+        if (Number(active) == 0) {
             this.setState({ id: Number(itemId) });
             this.setState({ shown2: true })
             setTimeout(
@@ -255,7 +242,7 @@ export default class Home extends Component {
             }
         )
         let usingDate = Array.from(keys, ([name, value]) => (value));
-        if (this.shownItems === [] || this.shownItems === '') {
+        if (this.shownItems == [] || this.shownItems == '') {
             this.shownItems = this.state.products;
         }
         return (

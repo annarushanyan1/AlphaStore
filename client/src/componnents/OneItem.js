@@ -10,7 +10,6 @@ const OneItem = (props) => {
     let [count, setCount] = useState(1);
     let products = JSON.parse(localStorage.getItem("shopProducts"));
     let id = props.match.params.id;
-    console.log(id);
     let prd = products.find(
         (item) => {
             if (Number(item['id']) === Number(id)) {
@@ -28,8 +27,6 @@ const OneItem = (props) => {
         window.history.back();
     }
 
-
-    console.log(prd);
     let name = prd["name"];
     let filterList = [];
     products.map(
@@ -40,10 +37,7 @@ const OneItem = (props) => {
         }
 
     )
-    console.log(filterList)
     function addtocart(e) {
-
-        console.log(count)
         let active = localStorage.getItem('user');
 
         if (active == 1) {

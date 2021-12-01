@@ -28,8 +28,6 @@ const Registration = () => {
                 )
                 .then(
                     data => {
-                        console.log(data)
-                        console.log("13")
                         setFirstname("")
                         setLastname("")
                         setUsername("")

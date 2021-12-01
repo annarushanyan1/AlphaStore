@@ -24,7 +24,6 @@ export default class Login extends Component {
     }
 
     handleSubmit() {
-        console.log("startin checkin")
         if (!this.check()) {
             return "Please fill all fields"
         }
@@ -47,10 +46,9 @@ export default class Login extends Component {
             )
             .then(
                 data => {
-                    console.log(51, data)
                     localStorage.setItem("user", 1);
                     if (data['isUser'] == 0) {
-                        console.log("isUser ..." + data["isUser"]);
+                        
                         localStorage.setItem('user', "0");
                         localStorage.setItem('userId', data['userId']);
                         localStorage.setItem('token', data['token']);

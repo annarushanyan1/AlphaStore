@@ -5,12 +5,7 @@ import Login from './componnents/Login';
 import './styles/App.css';
 import { Component } from 'react';
 import Registration from './componnents/Registration';
-import {
-  BrowserRouter,
-  Switch,
-  Route
-
-} from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ContactUs from './componnents/ContactUs';
 import AboutUs from './componnents/AboutUs';
 import OneItem from './componnents/OneItem';
@@ -20,9 +15,6 @@ import Dash from './componnents/Dash';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import Forbidden from './PrivateRoute/Forbidden';
 import Buy from './componnents/Buy';
-
-
-
 
 export default class App extends Component {
   state = {
@@ -72,8 +64,6 @@ export default class App extends Component {
       )
     }
 
-
-
     let get = localStorage.getItem("user")
 
     if (Number(get) === 1) {
@@ -103,8 +93,6 @@ export default class App extends Component {
             </PrivateRoute>
 
             <Route path="/login" component={Login} />
-            {/* <Route path="/account" component={Dash} /> */}
-            {/* <Route path="/registration" component={Registration} /> */}
             <PrivateRoute
               path="/registration"
               isAuthenticated={!this.isAuthenticated()}
