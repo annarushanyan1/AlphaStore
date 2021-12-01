@@ -1,8 +1,10 @@
 .mainFooter{
     display: flex;
-    height:180px;
+    height:30vh;
     background-color: rgb(233, 233, 233);
     justify-content: center;
+    position: relative;
+    bottom: 0;
 }
 
 .mainFooter>div{

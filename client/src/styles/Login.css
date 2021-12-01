@@ -1,6 +1,6 @@
 .block{
     margin:0px 40%;
-    height: 500px;
+    height: 66vh;
     width: 400px;
 
 
@@ -121,3 +121,11 @@
     padding-left: 12px;
     font-size: 20px;
 }
+
+/* @media screen and (min-height: 900px) {
+    .mainFooter{
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+    }
+} */

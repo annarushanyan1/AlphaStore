@@ -7,7 +7,6 @@ and  buy items. Also you can write a message to administrator.
 
   * node v14.17.6 or newer
 
-
 # SetUp
 
 At first open terminal and run this commands to install modules
@@ -39,7 +38,6 @@ and run this script
 
 The application is already running. If the window didn't open,
 go to `http://localhost:3000/`
-
 
 ### Technologies
 

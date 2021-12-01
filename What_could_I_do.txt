@@ -2,11 +2,11 @@ What could I do but didn't do because of the short time.
 
 ***** Creating admin
 
-     Admin who would be able to see some graffics, users list,woulb be able to answer to users' questions.
+     Admin who would be able to see some graphics, users list,would be able to answer to users' questions.
 
 ***** Creating more columns for the table products(SQL)
      
-     For exalmple, name, brand, description, size, colors, etc..
+     For exalmple, name, brand, description, size, colors, etc.. and use it in searching
 
 ***** VALIDATION
 
