@@ -26,11 +26,11 @@ const Dash = () => {
 
         try {
             const response = await fetch("/api/productsById", {
-                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                method: 'POST', 
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(sendingdata) // body data type must match "Content-Type" header
+                body: JSON.stringify(sendingdata) 
             });
             const json = await response.json();
             let prd = JSON.parse(json["products"]);

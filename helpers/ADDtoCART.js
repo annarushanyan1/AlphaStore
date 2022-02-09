@@ -22,11 +22,6 @@ exports.ADDtoCART = function (id, userId) {
                     products = row;
                 });
                 let one = OneProduct;
-
-                // if(products == "" || ){
-                //     products="[]"
-                // }
-
                 products = JSON.parse(products["products"])
                 products.push(one)
                 products = JSON.stringify(products)

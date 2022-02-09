@@ -37,7 +37,7 @@ const ProductsFromCategories = (props) => {
             fetch(
                 '/api/addToCart',
                 {
-                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },

@@ -30,6 +30,6 @@ exports.ShopProducts = function (res) {
             return products
         }
     )
-    // db.close()
+
 
 }

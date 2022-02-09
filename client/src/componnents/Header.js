@@ -117,7 +117,6 @@ window.open("/account","_self")
                     {
                         get === 0 ? (
                             <button
-                                // label="Submit" onClick={logout}
                                 label="Submit" onClick={openLogOut}
                                 className="buttonLogOut"
                             >

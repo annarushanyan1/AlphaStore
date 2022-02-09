@@ -3,18 +3,14 @@ import '../styles/ShopsList.css';
 
 
 const ShopsList = () => {
-    return (
+  return (
 
-        <div className="mainShop">
+    <div className="mainShop">
+      <div className="collections">
+      </div>
+    </div>
 
-            <div className="collections">
-
-            </div>
-
-
-        </div>
-
-    )
+  )
 }
 
 export default ShopsList
